@@ -1,4 +1,10 @@
+databases:
+  - name: workshop-feedback-db
+    plan: free
+    databaseName: workshop_feedback
+
 services:
+  # Feedback API (Flask) — students submit here
   - type: web
     name: workshop-feedback
     runtime: python
@@ -7,3 +13,21 @@ services:
     plan: free
     repo: https://github.com/Dharini-MernStack/workshop-feedback
     branch: main
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: workshop-feedback-db
+          property: connectionString
+
+  # Slide Deck (Streamlit) — you present from here
+  - type: web
+    name: workshop-slides
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    plan: free
+    repo: https://github.com/Dharini-MernStack/workshop-feedback
+    branch: main
+    envVars:
+      - key: FEEDBACK_URL
+        value: https://workshop-feedback-ismc.onrender.com
