@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: workshop-feedback
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn feedback_server:app --bind 0.0.0.0:$PORT
+    plan: free
+    repo: https://github.com/Dharini-MernStack/workshop-feedback
+    branch: main
