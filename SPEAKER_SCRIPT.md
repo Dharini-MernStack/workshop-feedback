@@ -227,11 +227,27 @@ Anyone in the world can use your agent with that link. Your parents, your friend
 
 ## SLIDE 19: Demo 7 — Colab Instructions
 
-Let me show you exactly how to run this on Colab.
+Now, why are we using Google Colab for this demo? Three reasons.
+
+**First -- zero setup.** You don't need to install Python, pip, or any libraries on your laptop. Colab gives you a full Python environment in the browser. Open the link, click Run. Done.
+
+**Second -- free GPU and compute.** Colab runs on Google's servers. Your laptop doesn't need to do any heavy lifting. Even if you're on a low-spec machine or college Wi-Fi, it works.
+
+**Third -- and this is the big one -- instant public URL.** When you run Gradio with `share=True` on Colab, it generates a public link like `https://xxxxx.gradio.live`. Anyone in the world can access your agent through that link. No hosting setup, no domain, no deployment pipeline. Your agent goes from code to a live product in 30 seconds.
+
+You can't do that running locally -- your laptop is behind a firewall, nobody outside this room can reach it. Colab + Gradio gives you instant deployment for free.
+
+Let me show you exactly how.
 
 **[Open Colab on screen, share screen]**
 
-Cell 1: install dependencies. Cell 2: paste the code. Replace the API key. Run.
+Step 1: Go to colab.research.google.com. Upload the notebook -- or open it from the GitHub link I'll share.
+
+Step 2: Run Cell 1 -- this installs `gradio`, `groq`, and `duckduckgo-search`. Takes about 15 seconds.
+
+Step 3: In Cell 2, replace `YOUR_GROQ_API_KEY_HERE` with the API key you created earlier on console.groq.com.
+
+Step 4: Run Cell 2. Wait for it.
 
 **[Wait for the public URL to appear]**
 
@@ -240,6 +256,8 @@ There it is. A public URL. Open it on your phone.
 **[Pull out phone, open the URL, type a question, show the response to the room]**
 
 That's YOUR agent, running on Google's servers, accessible to anyone in the world. You just deployed an AI product. In 2 minutes. From a free notebook.
+
+Note: The Gradio public link expires after 72 hours. For permanent hosting, you'd use platforms like Render, Hugging Face Spaces, or Railway. But for a workshop, hackathon, or quick demo -- Colab is perfect.
 
 ---
 
