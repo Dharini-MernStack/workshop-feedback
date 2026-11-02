@@ -19,12 +19,25 @@ services:
           name: workshop-feedback-db
           property: connectionString
 
-  # Slide Deck (Streamlit) — you present from here
+  # Slide Deck (Streamlit) — 3rd Year version
   - type: web
     name: workshop-slides
     runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    plan: free
+    repo: https://github.com/Dharini-MernStack/workshop-feedback
+    branch: main
+    envVars:
+      - key: FEEDBACK_URL
+        value: https://workshop-feedback-ismc.onrender.com
+
+  # Slide Deck (Streamlit) — 2nd Year version
+  - type: web
+    name: workshop-slides-2ndyear
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app_2ndyear.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
     plan: free
     repo: https://github.com/Dharini-MernStack/workshop-feedback
     branch: main
