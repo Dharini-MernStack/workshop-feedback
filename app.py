@@ -811,11 +811,28 @@ elif current == "Demo 3: Embeddings":
     sentences = [s.strip() for s in sentences_input.strip().split("\n") if s.strip()]
     
     if st.button("Compute Embeddings and Similarity", use_container_width=True):
-        with st.spinner("Computing..."):
-            from sentence_transformers import SentenceTransformer
+        with st.spinner("Computing embeddings..."):
             import numpy as np
-            model = SentenceTransformer('all-MiniLM-L6-v2')
-            embeddings = model.encode(sentences)
+            try:
+                from sentence_transformers import SentenceTransformer
+                @st.cache_resource
+                def load_model():
+                    return SentenceTransformer('all-MiniLM-L6-v2')
+                model = load_model()
+                embeddings = model.encode(sentences)
+            except Exception:
+                # Lightweight fallback: use simple hash-based embeddings for demo
+                import hashlib
+                def simple_embed(text, dim=384):
+                    np.random.seed(int(hashlib.md5(text.lower().encode()).hexdigest(), 16) % (2**32))
+                    words = text.lower().split()
+                    vec = np.zeros(dim)
+                    for w in words:
+                        np.random.seed(int(hashlib.md5(w.encode()).hexdigest(), 16) % (2**32))
+                        vec += np.random.randn(dim)
+                    norm = np.linalg.norm(vec)
+                    return vec / norm if norm > 0 else vec
+                embeddings = np.array([simple_embed(s) for s in sentences])
             
             st.markdown(f"**Each sentence becomes {embeddings.shape[1]} numbers**")
             st.code(f"'{sentences[0]}' => {embeddings[0][:8].round(4).tolist()} ...", language=None)
@@ -942,14 +959,19 @@ REST APIs: GET (read), POST (create), PUT (update), DELETE (remove). JSON format
     notes = st.text_area("Your Knowledge Base (one topic per line):", value=default_notes, height=180)
     
     if st.button("Load into Vector DB", use_container_width=True):
-        import chromadb
-        docs = [n.strip() for n in notes.strip().split("\n") if n.strip()]
-        client = chromadb.Client()
-        try: client.delete_collection("demo_rag")
-        except: pass
-        collection = client.create_collection("demo_rag")
-        collection.add(documents=docs, ids=[f"d_{i}" for i in range(len(docs))])
-        st.session_state.rag_collection = collection
+        try:
+            import chromadb
+            docs = [n.strip() for n in notes.strip().split("\n") if n.strip()]
+            if 'chroma_client' not in st.session_state:
+                st.session_state.chroma_client = chromadb.Client()
+            client = st.session_state.chroma_client
+            try: client.delete_collection("demo_rag")
+            except: pass
+            collection = client.create_collection("demo_rag")
+            collection.add(documents=docs, ids=[f"d_{i}" for i in range(len(docs))])
+            st.session_state.rag_collection = collection
+        except Exception as e:
+            st.error(f"ChromaDB error: {e}. Try refreshing the page.")
         st.session_state.rag_ready = True
         st.success(f"Loaded {len(docs)} documents into vector DB!")
     
