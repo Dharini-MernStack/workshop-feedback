@@ -202,55 +202,72 @@ st.markdown("""
         padding: 24px;
         margin: 12px 0;
     }
-    .quiz-card {
-        background: #141414;
-        border: 1px solid #2a2a2a;
-        border-radius: 16px;
-        padding: 28px 32px;
-        margin: 10px auto;
-        max-width: 700px;
-        text-align: left;
-    }
-    .quiz-card p {
-        font-size: 1.05rem;
-        color: #e5e7eb;
-        margin-bottom: 4px;
-    }
-    .quiz-header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
     .quiz-header .quiz-badge {
         display: inline-block;
         background: linear-gradient(135deg, #EF3837, #cc2a29);
         color: white;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         font-weight: 700;
-        padding: 6px 16px;
+        padding: 4px 14px;
         border-radius: 20px;
-        margin-bottom: 12px;
     }
     .quiz-score {
         text-align: center;
-        padding: 20px 0;
     }
     .quiz-score .score-num {
-        font-size: 4rem;
         font-weight: 900;
         font-family: 'JetBrains Mono', monospace;
         line-height: 1;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
     }
     .quiz-score .score-label {
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: #9ca3af;
     }
     .quiz-divider {
         border: none;
         border-top: 1px solid #222;
-        margin: 16px auto;
+        margin: 6px auto;
         max-width: 700px;
+    }
+    
+    /* Quiz slide: compact, no-scroll layout */
+    .slide-frame.quiz-mode {
+        padding: 16px 32px 12px 32px;
+        min-height: auto;
+        justify-content: flex-start;
+    }
+    .slide-frame.quiz-mode h1 {
+        font-size: 1.6rem;
+        margin-bottom: 2px;
+    }
+    .slide-frame.quiz-mode .slide-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+    }
+    .quiz-card {
+        padding: 10px 20px;
+        margin: 3px auto;
+    }
+    .quiz-card .stRadio > div {
+        gap: 0px;
+    }
+    .quiz-card .stRadio label {
+        padding: 2px 0;
+        min-height: auto;
+    }
+    .quiz-card .stRadio > label {
+        margin-bottom: 2px;
+    }
+    .quiz-header {
+        margin-bottom: 6px;
+    }
+    .quiz-score {
+        padding: 8px 0;
+    }
+    .quiz-score .score-num {
+        font-size: 2.5rem;
     }
     
     .activity-card {
@@ -435,10 +452,11 @@ def render_feedback_slide(round_num, slide_num_html, sn, TOTAL):
     slide_end(n)
 
 
-def slide_start(title, subtitle=None, slide_num=None, total=None):
+def slide_start(title, subtitle=None, slide_num=None, total=None, compact=False):
     sub = f'<p class="slide-subtitle">{subtitle}</p>' if subtitle else ""
     num = f'<div class="slide-number">{slide_num} / {total}</div>' if slide_num else ""
-    st.markdown(f"""<div class="slide-frame">
+    extra_class = " quiz-mode" if compact else ""
+    st.markdown(f"""<div class="slide-frame{extra_class}">
         <h1>{title}</h1>{sub}""", unsafe_allow_html=True)
     return num
 
@@ -930,54 +948,53 @@ elif current == "Feedback 1":
 #  SLIDE: QUIZ 1 - AI FUNDAMENTALS
 # ================================================================
 elif current == "Quiz 1: AI Fundamentals":
-    n = slide_start("Quiz 1: AI Fundamentals", "Let's see what stuck!", sn, TOTAL)
+    n = slide_start("Quiz 1: AI Fundamentals", "Let's see what stuck!", sn, TOTAL, compact=True)
     
     st.markdown('<div class="quiz-header"><span class="quiz-badge">4 QUESTIONS</span></div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q1 = st.radio("**Q1.** What does an LLM actually do?", [
-        "A) Thinks like a human brain",
-        "B) Predicts the most likely next word based on patterns",
-        "C) Searches Google for answers",
-        "D) Copies text from Wikipedia"
-    ], key="q1_1")
-    st.markdown('</div>', unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q1 = st.radio("**Q1.** What does an LLM actually do?", [
+            "A) Thinks like a human brain",
+            "B) Predicts the next word from patterns",
+            "C) Searches Google for answers",
+            "D) Copies text from Wikipedia"
+        ], key="q1_1")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
+    with col2:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q2 = st.radio("**Q2.** What is a 'system prompt'?", [
+            "A) The AI's operating system",
+            "B) Sets the AI's personality & behavior",
+            "C) The first thing the user types",
+            "D) A way to hack the AI"
+        ], key="q1_2")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q2 = st.radio("**Q2.** What is a 'system prompt'?", [
-        "A) The AI's operating system",
-        "B) A message that sets the AI's personality and behavior",
-        "C) The first thing the user types",
-        "D) A way to hack the AI"
-    ], key="q1_2")
-    st.markdown('</div>', unsafe_allow_html=True)
+    col3, col4 = st.columns(2)
+    with col3:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q3 = st.radio("**Q3.** What does 'temperature' control?", [
+            "A) How fast the AI responds",
+            "B) How creative vs predictable output is",
+            "C) The length of the response",
+            "D) How accurate the response is"
+        ], key="q1_3")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
+    with col4:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q4 = st.radio("**Q4.** Why can't ChatGPT tell you yesterday's news?", [
+            "A) It's too lazy",
+            "B) Trained on past data, no live internet",
+            "C) You need to pay for that",
+            "D) You just need to ask nicely"
+        ], key="q1_4")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q3 = st.radio("**Q3.** What does 'temperature' control?", [
-        "A) How fast the AI responds",
-        "B) How creative vs predictable the output is",
-        "C) The length of the response",
-        "D) How accurate the response is"
-    ], key="q1_3")
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
-    
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q4 = st.radio("**Q4.** Why can't ChatGPT tell you what happened yesterday?", [
-        "A) It's too lazy",
-        "B) It was trained on past data and doesn't have live internet access",
-        "C) You need to pay for that feature",
-        "D) It can, you just need to ask nicely"
-    ], key="q1_4")
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    st.markdown('<div style="text-align:center; padding: 16px 0;">', unsafe_allow_html=True)
-    if st.button("CHECK MY ANSWERS", key="c1", use_container_width=False):
+    if st.button("CHECK MY ANSWERS", key="c1", use_container_width=True):
         score = sum([
             1 if st.session_state.get("q1_1","").startswith("B") else 0,
             1 if st.session_state.get("q1_2","").startswith("B") else 0,
@@ -998,10 +1015,9 @@ elif current == "Quiz 1: AI Fundamentals":
             st.markdown("""
             1. **B)** Predicts the most likely next word based on patterns
             2. **B)** A message that sets the AI's personality and behavior  
-            3. **B)** How creative vs predictable the output is (0=robotic, 1=creative)
-            4. **B)** It was trained on past data -- it doesn't browse the internet in real-time
+            3. **B)** How creative vs predictable the output is
+            4. **B)** Trained on past data -- no live internet access
             """)
-    st.markdown('</div>', unsafe_allow_html=True)
     slide_end(n)
 
 # ================================================================
@@ -1190,54 +1206,53 @@ elif current == "Feedback 2":
 #  SLIDE: QUIZ 2 - RAG BASICS
 # ================================================================
 elif current == "Quiz 2: RAG Basics":
-    n = slide_start("Quiz 2: RAG Basics", "How well do you know RAG?", sn, TOTAL)
+    n = slide_start("Quiz 2: RAG Basics", "How well do you know RAG?", sn, TOTAL, compact=True)
     
     st.markdown('<div class="quiz-header"><span class="quiz-badge">4 QUESTIONS</span></div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q1 = st.radio("**Q1.** What does RAG stand for?", [
-        "A) Really Awesome Generator",
-        "B) Retrieval Augmented Generation",
-        "C) Random Answer Generator",
-        "D) Rapid AI Growth"
-    ], key="q2_1")
-    st.markdown('</div>', unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q1 = st.radio("**Q1.** What does RAG stand for?", [
+            "A) Really Awesome Generator",
+            "B) Retrieval Augmented Generation",
+            "C) Random Answer Generator",
+            "D) Rapid AI Growth"
+        ], key="q2_1")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
+    with col2:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q2 = st.radio("**Q2.** In the open-book exam analogy, what is 'retrieval'?", [
+            "A) Writing the answer",
+            "B) Studying the night before",
+            "C) Looking up relevant pages first",
+            "D) Memorizing everything"
+        ], key="q2_2")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q2 = st.radio("**Q2.** In the open-book exam analogy, what is 'retrieval'?", [
-        "A) Writing the answer",
-        "B) Studying the night before",
-        "C) Looking up the relevant pages before answering",
-        "D) Memorizing everything"
-    ], key="q2_2")
-    st.markdown('</div>', unsafe_allow_html=True)
+    col3, col4 = st.columns(2)
+    with col3:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q3 = st.radio("**Q3.** What are embeddings?", [
+            "A) Images inside documents",
+            "B) Numbers that capture meaning of text",
+            "C) Links to websites",
+            "D) AI model names"
+        ], key="q2_3")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
+    with col4:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q4 = st.radio("**Q4.** RAG asked something NOT in docs?", [
+            "A) Make up an answer anyway",
+            "B) Crash and show an error",
+            "C) Honestly say 'I don't have that info'",
+            "D) Search Google instead"
+        ], key="q2_4")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q3 = st.radio("**Q3.** What are embeddings?", [
-        "A) Images inside documents",
-        "B) Numbers that capture the meaning of text",
-        "C) Links to websites",
-        "D) AI model names"
-    ], key="q2_3")
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
-    
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q4 = st.radio("**Q4.** What should a good RAG system do when asked something NOT in its documents?", [
-        "A) Make up an answer anyway",
-        "B) Crash and show an error",
-        "C) Honestly say it doesn't have that information",
-        "D) Search Google instead"
-    ], key="q2_4")
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    st.markdown('<div style="text-align:center; padding: 16px 0;">', unsafe_allow_html=True)
-    if st.button("CHECK MY ANSWERS", key="c2", use_container_width=False):
+    if st.button("CHECK MY ANSWERS", key="c2", use_container_width=True):
         score = sum([
             1 if st.session_state.get("q2_1","").startswith("B") else 0,
             1 if st.session_state.get("q2_2","").startswith("C") else 0,
@@ -1257,11 +1272,10 @@ elif current == "Quiz 2: RAG Basics":
         with st.expander("See correct answers"):
             st.markdown("""
             1. **B)** Retrieval Augmented Generation
-            2. **C)** Looking up the relevant pages before answering (retrieval = finding the right context)
+            2. **C)** Looking up the relevant pages before answering
             3. **B)** Numbers that capture the meaning of text
-            4. **C)** Honestly say it doesn't have that information (no hallucination!)
+            4. **C)** Honestly say it doesn't have that info
             """)
-    st.markdown('</div>', unsafe_allow_html=True)
     slide_end(n)
 
 # ================================================================
@@ -1666,65 +1680,64 @@ elif current == "Feedback 3":
 #  SLIDE: FINAL QUIZ
 # ================================================================
 elif current == "Final Quiz":
-    n = slide_start("Final Quiz: What Did You Learn?", "The big one -- let's see how far you've come!", sn, TOTAL)
+    n = slide_start("Final Quiz", "The big one -- are you a CEO?", sn, TOTAL, compact=True)
     
-    st.markdown('<div class="quiz-header"><span class="quiz-badge">5 QUESTIONS • THE FINAL BOSS</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="quiz-header"><span class="quiz-badge">5 QUESTIONS • FINAL BOSS</span></div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q1 = st.radio("**Q1.** You want AI to answer questions about YOUR college notes. You need:", [
-        "A) A bigger AI model",
-        "B) RAG -- store notes in a database, retrieve relevant ones, then answer",
-        "C) Copy-paste all notes into ChatGPT every time",
-        "D) Fine-tune GPT-4 on your notes"
-    ], key="qf_1")
-    st.markdown('</div>', unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q1 = st.radio("**Q1.** AI to answer from YOUR notes. You need:", [
+            "A) A bigger AI model",
+            "B) RAG -- store, retrieve, answer",
+            "C) Copy-paste into ChatGPT each time",
+            "D) Fine-tune GPT-4 on your notes"
+        ], key="qf_1")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
+    with col2:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q2 = st.radio("**Q2.** Agent vs chatbot?", [
+            "A) Agents are more expensive",
+            "B) Agents use tools & decide autonomously",
+            "C) Agents are always more accurate",
+            "D) There's no real difference"
+        ], key="qf_2")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q2 = st.radio("**Q2.** What makes an AI agent different from a chatbot?", [
-        "A) Agents are more expensive",
-        "B) Agents can use tools and make decisions autonomously",
-        "C) Agents are always more accurate",
-        "D) There's no real difference"
-    ], key="qf_2")
-    st.markdown('</div>', unsafe_allow_html=True)
+    col3, col4 = st.columns(2)
+    with col3:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q3 = st.radio("**Q3.** BEST way to improve AI output?", [
+            "A) Use a more expensive model",
+            "B) Better prompt: role, structure, examples",
+            "C) Ask the same question 10 times",
+            "D) Use all caps"
+        ], key="qf_3")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
+    with col4:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q4 = st.radio("**Q4.** System prompt controls:", [
+            "A) The AI model's speed",
+            "B) AI's personality, behavior & rules",
+            "C) How much the API costs",
+            "D) The language of the response"
+        ], key="qf_4")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q3 = st.radio("**Q3.** The BEST way to improve an AI's output is to:", [
-        "A) Use a more expensive model",
-        "B) Write a better prompt with clear role, structure, and examples",
-        "C) Ask the same question 10 times",
-        "D) Use all caps"
-    ], key="qf_3")
-    st.markdown('</div>', unsafe_allow_html=True)
+    col5, col6 = st.columns([1, 1])
+    with col5:
+        st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
+        q5 = st.radio("**Q5.** Most important skill in AI era?", [
+            "A) Memorizing code syntax",
+            "B) Typing faster",
+            "C) Orchestrating AI -- tools, data, models",
+            "D) Using ChatGPT for homework"
+        ], key="qf_5")
+        st.markdown('</div>', unsafe_allow_html=True)
     
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
-    
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q4 = st.radio("**Q4.** What does the 'system prompt' control?", [
-        "A) The AI model's speed",
-        "B) The AI's personality, behavior, and rules",
-        "C) How much the API costs",
-        "D) The language of the response"
-    ], key="qf_4")
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    st.markdown('<hr class="quiz-divider">', unsafe_allow_html=True)
-    
-    st.markdown('<div class="quiz-card">', unsafe_allow_html=True)
-    q5 = st.radio("**Q5.** In the 5 Levels framework, which skill matters MOST in the AI era?", [
-        "A) Memorizing code syntax",
-        "B) Typing faster",
-        "C) Knowing how to orchestrate AI -- connecting tools, data, and models",
-        "D) Using ChatGPT for homework"
-    ], key="qf_5")
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    st.markdown('<div style="text-align:center; padding: 16px 0;">', unsafe_allow_html=True)
-    if st.button("AM I A CEO?", key="cf", use_container_width=False):
+    if st.button("AM I A CEO?", key="cf", use_container_width=True):
         score = sum([
             1 if st.session_state.get("qf_1","").startswith("B") else 0,
             1 if st.session_state.get("qf_2","").startswith("B") else 0,
@@ -1736,11 +1749,11 @@ elif current == "Final Quiz":
         if score == 5:
             emoji, msg = "👑", "CEO of Superintelligence! Perfect score!"
         elif score >= 4:
-            emoji, msg = "🔥", "Excellent! You've got the fundamentals down!"
+            emoji, msg = "🔥", "Excellent! Fundamentals locked in!"
         elif score >= 3:
-            emoji, msg = "💪", "Good start! Review the slides you missed."
+            emoji, msg = "💪", "Good start! Review what you missed."
         else:
-            emoji, msg = "📚", "No worries! Check 'What to Learn Next' for resources."
+            emoji, msg = "📚", "Check 'What to Learn Next' for resources!"
         st.markdown(f"""
         <div class="quiz-score">
             <p class="score-num" style="color:{color};">{score}/5</p>
@@ -1752,12 +1765,11 @@ elif current == "Final Quiz":
         with st.expander("See correct answers"):
             st.markdown("""
             1. **B)** RAG -- store, retrieve, then answer
-            2. **B)** Agents can use tools and make decisions autonomously
-            3. **B)** Write a better prompt with clear role, structure, and examples
-            4. **B)** The AI's personality, behavior, and rules
-            5. **C)** Knowing how to orchestrate AI -- the CEO mindset!
+            2. **B)** Agents use tools and decide autonomously
+            3. **B)** Better prompt with role, structure, examples
+            4. **B)** AI's personality, behavior, and rules
+            5. **C)** Orchestrating AI -- the CEO mindset!
             """)
-    st.markdown('</div>', unsafe_allow_html=True)
     slide_end(n)
 
 # ================================================================
