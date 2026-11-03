@@ -467,6 +467,7 @@ SLIDES = [
     "Quiz 2: RAG Basics",
     "What are AI Agents?",
     "Demo 3: No-Code Agent (n8n)",
+    "Systems Thinking",
     "Activity 2: Build Your Agent",
     "Feedback 3",
     "Final Quiz",
@@ -1423,6 +1424,167 @@ Always end with a helpful tip or next step the student can take.""",
         You just built an AI agent with:<br>
         Brain (LLM) + Tools (Wikipedia, Search) + Logic (System Prompt)<br><br>
         <em>Zero lines of code. Just drag, drop, and connect.</em>
+    </div>
+    """, unsafe_allow_html=True)
+    slide_end(n)
+
+# ================================================================
+#  SLIDE: SYSTEMS THINKING
+# ================================================================
+elif current == "Systems Thinking":
+    n = slide_start("Systems Thinking", "The real skill behind great AI products", sn, TOTAL)
+    
+    st.markdown("""
+    <div class="analogy-box">
+        <h4>Before you build, learn to THINK in systems</h4>
+        <p>Building an AI agent isn't just about picking the right tools. It's about understanding how the <strong>pieces connect</strong>.</p>
+        <p>A chef who just knows recipes is good. A chef who understands <em>why</em> ingredients work together? That's a master. Same with AI.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### What is Systems Thinking?")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        <div class="concept-card">
+            <h4>Without Systems Thinking</h4>
+            <p>"I'll use ChatGPT for everything"</p>
+            <p>"Let me add more tools, that'll fix it"</p>
+            <p>"The AI is wrong, I need a better model"</p>
+            <p style="color: #EF3837; margin-top: 12px;">Thinking in parts. Fixing symptoms.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="concept-card">
+            <h4>With Systems Thinking</h4>
+            <p>"What's the INPUT, PROCESS, and OUTPUT?"</p>
+            <p>"Where does information flow? Where does it break?"</p>
+            <p>"What happens when THIS part fails?"</p>
+            <p style="color: #22c55e; margin-top: 12px;">Thinking in flows. Fixing root causes.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("### The 3 Questions of Systems Thinking")
+    
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown("""
+        <div class="concept-card" style="text-align:center;">
+            <h4>1. What goes IN?</h4>
+            <p style="font-size:2rem;">\u2b07\ufe0f</p>
+            <p>What data does the system need?</p>
+            <p>User question? Documents? API data?</p>
+            <p style="color:#9ca3af; font-size:0.85rem;">Bad input = bad output. Always.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with c2:
+        st.markdown("""
+        <div class="concept-card" style="text-align:center;">
+            <h4>2. What HAPPENS?</h4>
+            <p style="font-size:2rem;">\u2699\ufe0f</p>
+            <p>What transforms the input?</p>
+            <p>RAG retrieval? Tool calls? LLM reasoning?</p>
+            <p style="color:#9ca3af; font-size:0.85rem;">Each step can fail. Plan for it.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with c3:
+        st.markdown("""
+        <div class="concept-card" style="text-align:center;">
+            <h4>3. What comes OUT?</h4>
+            <p style="font-size:2rem;">\u2b06\ufe0f</p>
+            <p>What does the user actually get?</p>
+            <p>Is it useful? Accurate? Actionable?</p>
+            <p style="color:#9ca3af; font-size:0.85rem;">Test the output, not just the code.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("### Apply It: Map the RAG System")
+    
+    st.markdown("""
+    <div style="background:#141414; border:1px solid #333; border-radius:14px; padding:24px; margin:14px 0; text-align:center;">
+        <p style="font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:#e5e7eb; line-height:2.2;">
+            <span style="color:#3b82f6;">USER QUESTION</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#f59e0b;">EMBED</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#f59e0b;">SEARCH VECTOR DB</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#f59e0b;">RETRIEVE TOP DOCS</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#a855f7;">LLM + CONTEXT</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#22c55e;">ANSWER</span>
+        </p>
+        <p style="color:#555; font-size:0.85rem; margin-top:8px;">
+            <span style="color:#3b82f6;">INPUT</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <span style="color:#f59e0b;">PROCESS (retrieval)</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <span style="color:#a855f7;">PROCESS (generation)</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <span style="color:#22c55e;">OUTPUT</span>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### Apply It: Map an AI Agent")
+    
+    st.markdown("""
+    <div style="background:#141414; border:1px solid #333; border-radius:14px; padding:24px; margin:14px 0; text-align:center;">
+        <p style="font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:#e5e7eb; line-height:2.2;">
+            <span style="color:#3b82f6;">USER GOAL</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#f59e0b;">LLM DECIDES</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#f59e0b;">USE TOOL?</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#a855f7;">GET RESULT</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#f59e0b;">NEED MORE?</span>
+            &nbsp; \u2192 &nbsp;
+            <span style="color:#22c55e;">FINAL ANSWER</span>
+        </p>
+        <p style="color:#555; font-size:0.85rem; margin-top:8px;">
+            <span style="color:#3b82f6;">INPUT</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <span style="color:#f59e0b;">DECISION LOOP</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <span style="color:#a855f7;">TOOL RESULTS</span> &nbsp;&nbsp;|&nbsp;&nbsp;
+            <span style="color:#22c55e;">OUTPUT</span>
+            &nbsp;&nbsp; (loops until done!)
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### Why This Matters")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        <div class="concept-card">
+            <h4>For your n8n agent</h4>
+            <p>Before you start dragging blocks, ask:</p>
+            <p>1. What does the user actually need?</p>
+            <p>2. What's the simplest flow to get there?</p>
+            <p>3. What happens when the tool fails?</p>
+            <p>4. How do I know the output is good?</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with col2:
+        st.markdown("""
+        <div class="concept-card">
+            <h4>For your career</h4>
+            <p>Systems thinking isn't just for AI. It's how you:</p>
+            <p>\u2022 Debug code (trace the data flow)</p>
+            <p>\u2022 Design products (user journey mapping)</p>
+            <p>\u2022 Solve any complex problem (break it into connected parts)</p>
+            <p style="color:#EF3837;">This is the #1 skill employers want.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="big-quote" style="font-size: 1.2rem;">
+        Tools change every year. Frameworks come and go.<br>
+        <em>The ability to think in systems is permanent.</em><br><br>
+        Before you build your agent next, draw the system first.
     </div>
     """, unsafe_allow_html=True)
     slide_end(n)
