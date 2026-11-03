@@ -1,6 +1,6 @@
 """
 CEO OF SUPERINTELLIGENCE -- Workshop Slide Deck (2nd Year Edition)
-Toned down for beginners: fundamentals → RAG intro → no-code agent building
+Toned down for beginners: fundamentals -> RAG intro -> no-code agent building
 Run: streamlit run app_2ndyear.py
 """
 
@@ -24,7 +24,7 @@ FEEDBACK_URL = os.environ.get("FEEDBACK_URL", "https://workshop-feedback-ismc.on
 # -- Page Config --
 st.set_page_config(
     page_title="CEO of Superintelligence -- Workshop (2nd Year)",
-    page_icon="🧠",
+    page_icon="S",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -40,7 +40,7 @@ st.markdown("""
     
     .slide-frame {
         background: #111;
-        border: 1px solid #222;
+        border: 1px solid #2a0a0a;
         border-radius: 20px;
         padding: 48px 56px;
         min-height: 70vh;
@@ -74,18 +74,18 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
         font-size: 1.35rem;
         font-weight: 700;
-        color: #d1d5db;
+        color: #ffffff;
         margin-top: 18px;
     }
     .slide-frame p, .slide-frame li {
         font-family: 'Inter', sans-serif;
         font-size: 1.15rem;
         line-height: 1.7;
-        color: #d1d5db;
+        color: #ffffff;
     }
     .slide-subtitle {
         font-size: 1.3rem;
-        color: #9ca3af;
+        color: #cccccc;
         margin-top: 0;
         text-align: center;
     }
@@ -101,7 +101,7 @@ st.markdown("""
     .big-quote {
         font-size: 1.6rem;
         font-weight: 700;
-        color: #e5e7eb;
+        color: #ffffff;
         text-align: center;
         padding: 32px 0;
         line-height: 1.6;
@@ -123,8 +123,8 @@ st.markdown("""
     }
     .level-card.active { border-color: #EF3837; background: #1a0a0a; }
     .level-card h4 { color: #EF3837; margin: 0 0 4px 0; font-size: 1.1rem; }
-    .level-card .role { color: #9ca3af; font-size: 0.85rem; margin: 0; }
-    .level-card .phrase { color: #e5e7eb; font-size: 0.95rem; margin-top: 8px; }
+    .level-card .role { color: #cccccc; font-size: 0.85rem; margin: 0; }
+    .level-card .phrase { color: #ffffff; font-size: 0.95rem; margin-top: 8px; }
     
     .code-editor {
         border: 1px solid #333;
@@ -155,7 +155,7 @@ st.markdown("""
         background: #161616;
         border-top: 1px dashed #333;
         padding: 14px 20px;
-        color: #9ca3af;
+        color: #cccccc;
         font-size: 0.88rem;
         line-height: 1.7;
     }
@@ -165,7 +165,7 @@ st.markdown("""
         padding: 2px 7px;
         border-radius: 4px;
         font-family: 'JetBrains Mono', monospace;
-        color: #e5e7eb;
+        color: #ffffff;
         font-size: 0.84rem;
     }
     
@@ -204,13 +204,13 @@ st.markdown("""
     }
     
     .activity-card {
-        background: linear-gradient(135deg, #0d1117, #111a2e);
-        border: 2px solid #3b82f6;
+        background: linear-gradient(135deg, #0d0d0d, #1a0a0a);
+        border: 2px solid #EF3837;
         border-radius: 16px;
         padding: 24px;
         margin: 16px 0;
     }
-    .activity-card h4 { color: #3b82f6; margin-top: 0; }
+    .activity-card h4 { color: #EF3837; margin-top: 0; }
     
     .demo-output {
         background: #1a1a1a;
@@ -231,14 +231,14 @@ st.markdown("""
     .concept-card h4 { color: #EF3837; margin-top: 0; }
     
     .analogy-box {
-        background: linear-gradient(135deg, #111, #1a1a2e);
-        border: 1px solid #3b82f6;
+        background: linear-gradient(135deg, #111, #1a0a0a);
+        border: 1px solid #EF3837;
         border-radius: 14px;
         padding: 24px;
         margin: 14px 0;
         text-align: left;
     }
-    .analogy-box h4 { color: #3b82f6; margin-top: 0; }
+    .analogy-box h4 { color: #EF3837; margin-top: 0; }
     
     section[data-testid="stSidebar"] { background-color: #0d0d0d; }
 </style>
@@ -310,7 +310,7 @@ def render_feedback_slide(round_num, slide_num_html, sn, TOTAL):
     round_key = f"round_{round_num}"
     round_labels = {1: "First Impressions", 2: "Midway Check", 3: "Final Pulse"}
     
-    n = slide_start(f"⚡ Live Feedback — Round {round_num}", round_labels.get(round_num, ""), sn, TOTAL)
+    n = slide_start(f"Live Feedback — Round {round_num}", round_labels.get(round_num, ""), sn, TOTAL)
     
     url = f"{FEEDBACK_URL}/round/{round_num}"
     
@@ -319,8 +319,8 @@ def render_feedback_slide(round_num, slide_num_html, sn, TOTAL):
     with col_qr:
         st.markdown(f"""
         <div style="text-align:center; padding: 10px 0;">
-            <p style="font-size:1.3rem; color:#9ca3af; margin-bottom:8px;">📱 Scan with your phone</p>
-            <p style="font-size:0.85rem; color:#555; margin-bottom:12px;">Works on <strong style='color:#EF3837;'>any network</strong> — mobile data is fine!</p>
+            <p style="font-size:1.3rem; color:#cccccc; margin-bottom:8px;">Scan with your phone</p>
+            <p style="font-size:0.85rem; color:#555; margin-bottom:12px;">Works on <strong style='color:#EF3837;'>any network</strong> — mobile data is fine.</p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -345,43 +345,42 @@ def render_feedback_slide(round_num, slide_num_html, sn, TOTAL):
         count = rd["count"]
         avg = rd["avg_rating"]
         
-        rating_emoji = {1: "😴", 2: "😐", 3: "🙂", 4: "😃", 5: "🤯"}
-        avg_emoji = rating_emoji.get(round(avg) if avg else 3, "🙂")
+        rating_label = {1: "Low", 2: "Fair", 3: "Good", 4: "Great", 5: "Excellent"}
+        avg_label = rating_label.get(round(avg) if avg else 3, "Good")
         
         st.markdown(f"""
         <div style="text-align:center; padding:20px 0;">
             <p style="font-size:5rem; font-weight:900; color:#22c55e; margin:0; font-family:'JetBrains Mono',monospace;">{count}</p>
-            <p style="font-size:1.2rem; color:#9ca3af;">responses received</p>
+            <p style="font-size:1.2rem; color:#cccccc;">responses received</p>
         </div>
         """, unsafe_allow_html=True)
         
         if avg > 0:
             st.markdown(f"""
             <div style="text-align:center; padding:10px 0;">
-                <p style="font-size:3rem; margin:0;">{avg_emoji}</p>
-                <p style="font-size:1.1rem; color:#9ca3af;">Average: <strong style="color:#EF3837;">{avg}/5</strong></p>
+                <p style="font-size:2rem; margin:0; color:#ffffff; font-weight:700;">{avg_label}</p>
+                <p style="font-size:1.1rem; color:#cccccc;">Average: <strong style="color:#EF3837;">{avg}/5</strong></p>
             </div>
             """, unsafe_allow_html=True)
         
         if rd["entries"]:
             recent = rd["entries"][-8:]
-            names = " • ".join([f"{rating_emoji.get(e['rating'],'🙂')} {e['name']}" for e in reversed(recent)])
+            names = " | ".join([f"{e['name']} ({e['rating']}/5)" for e in reversed(recent)])
             st.markdown(f"""
             <div style="text-align:center; padding:12px 0;">
                 <p style="color:#555; font-size:0.8rem; margin-bottom:4px;">RECENT</p>
-                <p style="color:#9ca3af; font-size:0.95rem;">{names}</p>
+                <p style="color:#cccccc; font-size:0.95rem;">{names}</p>
             </div>
             """, unsafe_allow_html=True)
     
-    if st.button("🔄 Refresh Count", use_container_width=True, key=f"refresh_fb_{round_num}"):
+    if st.button("Refresh Count", use_container_width=True, key=f"refresh_fb_{round_num}"):
         st.rerun()
     
     if rd["entries"]:
-        with st.expander(f"📋 View All {count} Responses"):
+        with st.expander(f"View All {count} Responses"):
             for e in reversed(rd["entries"]):
-                emoji = rating_emoji.get(e["rating"], "🙂")
                 fb_text = f' — "{e["feedback"]}"' if e.get("feedback") else ""
-                st.markdown(f"{emoji} **{e['name']}** {fb_text}")
+                st.markdown(f"**{e['name']}** ({e['rating']}/5){fb_text}")
     
     slide_end(n)
 
@@ -410,16 +409,16 @@ SLIDES = [
     "Demo 1: Roast My Insta Bio",
     "Prompt Engineering 101",
     "Activity 1: Prompt Battle",
-    "⚡ Feedback 1",
+    "Feedback 1",
     "Quiz 1: AI Fundamentals",
     "What is RAG?",
     "Demo 2: RAG Pipeline",
-    "⚡ Feedback 2",
+    "Feedback 2",
     "Quiz 2: RAG Basics",
     "What are AI Agents?",
     "Demo 3: No-Code Agent (n8n)",
     "Activity 2: Build Your Agent",
-    "⚡ Feedback 3",
+    "Feedback 3",
     "Final Quiz",
     "What to Learn Next",
     "Quick Links",
@@ -476,7 +475,7 @@ if current == "Title":
         Person at Level 1: "AI will take my job"<br><br>
         Person at Level 5: <em>"I just automated my job and started a side business"</em><br><br>
         Same AI. Different user. Different outcome.<br><br>
-        <span style="font-size: 1rem; color: #9ca3af;">Today's goal: Go from Level 1 → Level 3 (and peek at Level 4)</span>
+        <span style="font-size: 1rem; color: #cccccc;">Today's goal: Go from Level 1 to Level 3 (and peek at Level 4)</span>
     </div>
     """, unsafe_allow_html=True)
     slide_end(n)
@@ -518,10 +517,10 @@ elif current == "The 5 Levels":
     
     st.markdown("""
     <div class="analogy-box">
-        <h4>🎯 Today's Journey</h4>
-        <p><strong>Level 1 → 2:</strong> Learn how to talk to AI properly (prompt engineering)</p>
-        <p><strong>Level 2 → 3:</strong> Feed AI YOUR data so it actually knows your stuff (RAG)</p>
-        <p><strong>Peek at Level 4:</strong> Build a simple AI agent with no code!</p>
+        <h4>Today's Journey</h4>
+        <p><strong>Level 1 to 2:</strong> Learn how to talk to AI properly (prompt engineering)</p>
+        <p><strong>Level 2 to 3:</strong> Feed AI YOUR data so it actually knows your stuff (RAG)</p>
+        <p><strong>Peek at Level 4:</strong> Build a simple AI agent with no code</p>
     </div>
     """, unsafe_allow_html=True)
     slide_end(n)
@@ -534,7 +533,7 @@ elif current == "What is AI Really?":
     
     st.markdown("""
     <div class="analogy-box">
-        <h4>🍕 The Pizza Analogy</h4>
+        <h4>The Pizza Analogy</h4>
         <p><strong>AI</strong> = An entire restaurant (the broad field)</p>
         <p><strong>Machine Learning</strong> = The kitchen (learns from data)</p>
         <p><strong>Deep Learning</strong> = The oven (neural networks)</p>
@@ -547,22 +546,22 @@ elif current == "What is AI Really?":
     with col1:
         st.markdown("""
         <div class="concept-card">
-            <h4>❌ What AI is NOT</h4>
-            <p>• Not sentient or conscious</p>
-            <p>• Not "thinking" like humans</p>
-            <p>• Not always correct</p>
-            <p>• Not magic — it's math + data</p>
+            <h4>What AI is NOT</h4>
+            <p>Not sentient or conscious</p>
+            <p>Not "thinking" like humans</p>
+            <p>Not always correct</p>
+            <p>Not magic — it's math + data</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
         <div class="concept-card">
-            <h4>✅ What AI actually IS</h4>
-            <p>• A very advanced pattern matcher</p>
-            <p>• Trained on billions of text examples</p>
-            <p>• Predicts "what word comes next"</p>
-            <p>• Like autocomplete on steroids 💪</p>
+            <h4>What AI actually IS</h4>
+            <p>A very advanced pattern matcher</p>
+            <p>Trained on billions of text examples</p>
+            <p>Predicts "what word comes next"</p>
+            <p>Like autocomplete on steroids</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -582,7 +581,7 @@ elif current == "How LLMs Work":
     
     st.markdown("""
     <div class="analogy-box">
-        <h4>📱 The WhatsApp Analogy</h4>
+        <h4>The WhatsApp Analogy</h4>
         <p>You know how your phone keyboard suggests the next word?</p>
         <p style="font-size: 1.3rem; color: #EF3837; text-align: center; padding: 12px 0;">
             "I am going to the" → <strong>store</strong> / <strong>gym</strong> / <strong>mall</strong>
@@ -597,37 +596,34 @@ elif current == "How LLMs Work":
     with col1:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>📚 Training Data</h4>
-            <p style="font-size:2.5rem;">📖📖📖</p>
+            <h4>Training Data</h4>
             <p>Books, websites, Wikipedia, code, forums — trillions of words</p>
-            <p style="color:#9ca3af; font-size:0.9rem;">This is why it "knows" so much</p>
+            <p style="color:#cccccc; font-size:0.9rem;">This is why it "knows" so much</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>🧠 The Model</h4>
-            <p style="font-size:2.5rem;">⚙️⚙️⚙️</p>
+            <h4>The Model</h4>
             <p>Billions of "parameters" (numbers) that capture patterns in language</p>
-            <p style="color:#9ca3af; font-size:0.9rem;">This is the "brain"</p>
+            <p style="color:#cccccc; font-size:0.9rem;">This is the "brain"</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col3:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>💬 Your Prompt</h4>
-            <p style="font-size:2.5rem;">✍️✍️✍️</p>
+            <h4>Your Prompt</h4>
             <p>Your input that steers the output. Better prompt = better response</p>
-            <p style="color:#9ca3af; font-size:0.9rem;">This is YOUR superpower</p>
+            <p style="color:#cccccc; font-size:0.9rem;">This is YOUR superpower</p>
         </div>
         """, unsafe_allow_html=True)
     
     st.markdown("""
     <div class="big-quote" style="font-size: 1.2rem;">
         <strong>Key insight:</strong> The AI was trained in the past. It doesn't know <em>your</em> notes, <em>your</em> college, or <em>today's</em> news.<br>
-        That's the problem we'll solve with <em>RAG</em> later today! 🔥
+        That's the problem we'll solve with <em>RAG</em> later today.
     </div>
     """, unsafe_allow_html=True)
     slide_end(n)
@@ -636,11 +632,11 @@ elif current == "How LLMs Work":
 #  SLIDE: SETUP
 # ================================================================
 elif current == "Setup":
-    n = slide_start("⚙️ API Key Setup", "Let's connect to an AI model", sn, TOTAL)
+    n = slide_start("API Key Setup", "Let's connect to an AI model", sn, TOTAL)
     
     st.markdown("""
     <div class="analogy-box">
-        <h4>🔑 What's an API Key?</h4>
+        <h4>What's an API Key?</h4>
         <p>Think of it like a <strong>password to use an AI model</strong>. Just like you need a login for Instagram, 
         you need an API key to use AI models in your own code/tools.</p>
         <p><strong>Groq</strong> = A company that lets you use powerful AI models for FREE (with limits).</p>
@@ -653,7 +649,7 @@ elif current == "Setup":
     2. Sign up with your Google account
     3. Click **"API Keys"** in the left sidebar
     4. Click **"Create API Key"**
-    5. Copy it and paste below 👇
+    5. Copy it and paste below
     """)
     
     key = st.text_input("Paste your Groq API Key here:", value=st.session_state.groq_key, type="password")
@@ -661,7 +657,7 @@ elif current == "Setup":
         st.session_state.groq_key = key
         os.environ['GROQ_API_KEY'] = key
     
-    if st.button("🧪 Test My Connection", use_container_width=True):
+    if st.button("Test My Connection", use_container_width=True):
         if not key:
             st.error("Please paste an API key first!")
         else:
@@ -673,18 +669,18 @@ elif current == "Setup":
                     messages=[{"role": "user", "content": "Say 'Hello, future CEO!' in exactly those words."}],
                     max_tokens=20
                 )
-                st.success(f"✅ Connected! AI says: {resp.choices[0].message.content}")
+                st.success(f"Connected! AI says: {resp.choices[0].message.content}")
                 st.balloons()
             except Exception as e:
-                st.error(f"❌ Something went wrong: {e}")
+                st.error(f"Something went wrong: {e}")
                 st.info("Double-check your API key and try again!")
     slide_end(n)
 
 # ================================================================
-#  SLIDE: DEMO 1 - ROAST MY RESUME
+#  SLIDE: DEMO 1 - ROAST MY INSTA BIO
 # ================================================================
 elif current == "Demo 1: Roast My Insta Bio":
-    n = slide_start("🔥 Demo 1: Roast My Insta Bio", "Let AI judge your online personality", sn, TOTAL)
+    n = slide_start("Demo 1: Roast My Insta Bio", "Let AI judge your online personality", sn, TOTAL)
     
     st.markdown("""
     <div class="analogy-box">
@@ -696,17 +692,17 @@ elif current == "Demo 1: Roast My Insta Bio":
     
     default_bio = """Instagram Bio:
 Name: Rahul Kumar
-📍 SRM AP | CSE '27
-💻 Coder | Dreamer | Hustler
-"Work hard in silence, let success make the noise" 🔥
-DM for collabs 🤝
-Founder @ nothing yet 😅
-Future Software Engineer at Google (manifesting) ✨"""
+SRM AP | CSE '27
+Coder | Dreamer | Hustler
+"Work hard in silence, let success make the noise"
+DM for collabs
+Founder @ nothing yet
+Future Software Engineer at Google (manifesting)"""
     
-    bio = st.text_area("📱 Paste your Insta Bio (or use the example):", value=default_bio, height=180)
-    mode = st.selectbox("🎭 Roast Style:", ["Savage (Funny)", "Brutally Honest (Helpful)", "Gen-Z Slang", "Indian Aunty"])
+    bio = st.text_area("Paste your Insta Bio (or use the example):", value=default_bio, height=180)
+    mode = st.selectbox("Roast Style:", ["Savage (Funny)", "Brutally Honest (Helpful)", "Gen-Z Slang", "Indian Aunty"])
     
-    if st.button("🔥 ROAST IT!", use_container_width=True):
+    if st.button("ROAST IT", use_container_width=True):
         if not st.session_state.groq_key:
             st.error("Go back to Setup and enter your API key first!")
         else:
@@ -718,30 +714,30 @@ Future Software Engineer at Google (manifesting) ✨"""
             }
             from groq import Groq
             client = Groq(api_key=st.session_state.groq_key)
-            with st.spinner("AI is stalking your bio... 👀"):
+            with st.spinner("AI is analyzing your bio..."):
                 response = client.chat.completions.create(
                     model="qwen/qwen3.8-27b",
                     messages=[
                         {"role": "system", "content": f"""{styles[mode]}
 Structure your response as:
-🔥 THE ROAST (savage but specific — quote actual lines from the bio)
-💀 CRINGE-O-METER (rate the cringe level 1-10 with explanation)
-✨ THE GLOW-UP (rewrite the bio so it actually slaps)"""},
+THE ROAST (savage but specific — quote actual lines from the bio)
+CRINGE-O-METER (rate the cringe level 1-10 with explanation)
+THE GLOW-UP (rewrite the bio so it actually slaps)"""},
                         {"role": "user", "content": f"Roast this Instagram bio:\n{bio}"}
                     ],
                     temperature=0.9, max_tokens=700
                 )
             st.markdown(f'<div class="demo-output">{response.choices[0].message.content}</div>', unsafe_allow_html=True)
     
-    with st.expander("🤔 How does this work? (Click to see)"):
+    with st.expander("How does this work? (Click to see)"):
         st.markdown("""
         **Just 2 messages make this work:**
         
         1. **System message** = The AI's personality & instructions  
-           → "You are a savage social media roast comedian..."
+           "You are a savage social media roast comedian..."
         
         2. **User message** = What you're asking  
-           → "Roast this Instagram bio: ..."
+           "Roast this Instagram bio: ..."
         
         **That's it.** The AI follows the system prompt's personality and applies it to your input.
         
@@ -773,7 +769,7 @@ elif current == "Prompt Engineering 101":
     with col1:
         st.markdown("""
         <div class="concept-card">
-            <h4>1. 🎭 Give it a Role</h4>
+            <h4>1. Give it a Role</h4>
             <p><strong>Bad:</strong> "Explain Python"</p>
             <p><strong>Good:</strong> "You are a patient CS professor teaching a beginner. Explain Python."</p>
         </div>
@@ -781,7 +777,7 @@ elif current == "Prompt Engineering 101":
         
         st.markdown("""
         <div class="concept-card">
-            <h4>2. 📋 Be Specific</h4>
+            <h4>2. Be Specific</h4>
             <p><strong>Bad:</strong> "Write code"</p>
             <p><strong>Good:</strong> "Write a Python function that takes a list of numbers and returns the top 3 largest. Include comments."</p>
         </div>
@@ -789,7 +785,7 @@ elif current == "Prompt Engineering 101":
         
         st.markdown("""
         <div class="concept-card">
-            <h4>3. 📐 Give Structure</h4>
+            <h4>3. Give Structure</h4>
             <p><strong>Bad:</strong> "Tell me about arrays"</p>
             <p><strong>Good:</strong> "Explain arrays in this format: Definition (2 lines), Real-world analogy, When to use, When NOT to use."</p>
         </div>
@@ -798,7 +794,7 @@ elif current == "Prompt Engineering 101":
     with col2:
         st.markdown("""
         <div class="concept-card">
-            <h4>4. 📝 Give Examples</h4>
+            <h4>4. Give Examples</h4>
             <p><strong>Bad:</strong> "Summarize this"</p>
             <p><strong>Good:</strong> "Summarize this in the style of: 'React is like LEGO blocks for websites — snap pieces together to build anything.'"</p>
         </div>
@@ -806,7 +802,7 @@ elif current == "Prompt Engineering 101":
         
         st.markdown("""
         <div class="concept-card">
-            <h4>5. 🔄 Iterate!</h4>
+            <h4>5. Iterate</h4>
             <p><strong>First attempt:</strong> "Explain ML"</p>
             <p><strong>After reading output:</strong> "That was too technical. Explain ML using only food analogies. No jargon."</p>
             <p style="color: #EF3837;">The best prompt is rarely your first one!</p>
@@ -815,9 +811,9 @@ elif current == "Prompt Engineering 101":
         
         st.markdown("""
         <div class="concept-card">
-            <h4>🧠 Bonus: Chain of Thought</h4>
+            <h4>Bonus: Chain of Thought</h4>
             <p>Add <strong>"Think step by step"</strong> to any prompt and watch the quality jump.</p>
-            <p style="color: #9ca3af;">This forces the AI to reason through problems instead of jumping to answers.</p>
+            <p style="color: #cccccc;">This forces the AI to reason through problems instead of jumping to answers.</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -827,16 +823,16 @@ elif current == "Prompt Engineering 101":
 #  SLIDE: ACTIVITY 1 - PROMPT BATTLE
 # ================================================================
 elif current == "Activity 1: Prompt Battle":
-    n = slide_start("🏆 Activity 1: Prompt Battle", "15 minutes — Best prompt wins!", sn, TOTAL)
+    n = slide_start("Activity 1: Prompt Battle", "15 minutes — Best prompt wins", sn, TOTAL)
     
     st.markdown("""
     <div class="activity-card">
-        <h4>🎯 CHALLENGE: Write the best system prompt</h4>
+        <h4>CHALLENGE: Write the best system prompt</h4>
         <ol>
-            <li>Pick a persona: <strong>Strict Indian Parent</strong>, <strong>Silicon Valley Bro</strong>, <strong>Bollywood Narrator</strong>, or <strong>your own idea!</strong></li>
+            <li>Pick a persona: <strong>Strict Indian Parent</strong>, <strong>Silicon Valley Bro</strong>, <strong>Bollywood Narrator</strong>, or <strong>your own idea</strong></li>
             <li>Write a system prompt that makes the AI review a resume in that style</li>
             <li>Test it below — iterate until it's amazing</li>
-            <li>Best result gets shared with the group! 🏆</li>
+            <li>Best result gets shared with the group</li>
         </ol>
     </div>
     """, unsafe_allow_html=True)
@@ -848,12 +844,12 @@ elif current == "Activity 1: Prompt Battle":
     - *"You are Virat Kohli giving a dressing room pep talk about this resume..."*
     """)
     
-    custom_prompt = st.text_area("✍️ Your system prompt:", height=120,
+    custom_prompt = st.text_area("Your system prompt:", height=120,
         placeholder="You are a strict Indian parent who...")
-    custom_input = st.text_area("📄 Resume or text to test:", height=120, key="a1r",
+    custom_input = st.text_area("Resume or text to test:", height=120, key="a1r",
         value="Skills: HTML, CSS. Projects: Calculator app. Experience: None. GPA: 6.8")
     
-    if st.button("🚀 Test My Prompt!", use_container_width=True):
+    if st.button("Test My Prompt", use_container_width=True):
         if not st.session_state.groq_key:
             st.error("Set your API key in Setup first!")
         elif not custom_prompt:
@@ -876,14 +872,14 @@ elif current == "Activity 1: Prompt Battle":
 # ================================================================
 #  SLIDE: FEEDBACK 1
 # ================================================================
-elif current == "⚡ Feedback 1":
+elif current == "Feedback 1":
     render_feedback_slide(1, None, sn, TOTAL)
 
 # ================================================================
 #  SLIDE: QUIZ 1 - AI FUNDAMENTALS
 # ================================================================
 elif current == "Quiz 1: AI Fundamentals":
-    n = slide_start("Quiz 1: AI Fundamentals", "Let's see what stuck!", sn, TOTAL)
+    n = slide_start("Quiz 1: AI Fundamentals", "Let's see what stuck", sn, TOTAL)
     
     q1 = st.radio("**1. What does an LLM actually do?**", [
         "A) Thinks like a human brain",
@@ -922,12 +918,12 @@ elif current == "Quiz 1: AI Fundamentals":
         ])
         if score == 4:
             st.balloons()
-            st.success(f"🎉 Score: {score}/4 — Perfect! You get how AI works!")
+            st.success(f"Score: {score}/4 — Perfect! You get how AI works!")
         elif score >= 3:
             st.info(f"Score: {score}/4 — Almost there!")
         else:
             st.warning(f"Score: {score}/4 — Review the 'What is AI' and 'How LLMs Work' slides.")
-        with st.expander("✅ Correct answers"):
+        with st.expander("Correct answers"):
             st.markdown("""
             1. **B)** Predicts the most likely next word based on patterns
             2. **B)** A message that sets the AI's personality and behavior  
@@ -944,11 +940,11 @@ elif current == "What is RAG?":
     
     st.markdown("""
     <div class="analogy-box">
-        <h4>📚 The Open-Book Exam Analogy</h4>
+        <h4>The Open-Book Exam Analogy</h4>
         <p><strong>Without RAG</strong> = Closed-book exam. The AI can only use what it memorized during training. 
         If it didn't read your college notes... it can't answer questions about them. It might even make stuff up!</p>
         <p><strong>With RAG</strong> = Open-book exam. Before answering, the AI <strong>looks up relevant pages</strong> from YOUR documents, 
-        then answers based on what it found. Much more accurate! 📖✨</p>
+        then answers based on what it found. Much more accurate!</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -958,48 +954,45 @@ elif current == "What is RAG?":
     with col1:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>Step 1: Store 📦</h4>
-            <p style="font-size:2.5rem;">📄 → 🔢</p>
+            <h4>Step 1: Store</h4>
             <p>Convert your documents into numbers (embeddings) and store them in a special database</p>
-            <p style="color:#9ca3af; font-size:0.9rem;">Like creating an index for a textbook</p>
+            <p style="color:#cccccc; font-size:0.9rem;">Like creating an index for a textbook</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>Step 2: Search 🔍</h4>
-            <p style="font-size:2.5rem;">❓ → 📄📄</p>
+            <h4>Step 2: Search</h4>
             <p>When you ask a question, find the most <strong>relevant</strong> documents by meaning (not just keywords!)</p>
-            <p style="color:#9ca3af; font-size:0.9rem;">Like flipping to the right chapter</p>
+            <p style="color:#cccccc; font-size:0.9rem;">Like flipping to the right chapter</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col3:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>Step 3: Answer 💬</h4>
-            <p style="font-size:2.5rem;">📄📄 + 🧠 → ✅</p>
+            <h4>Step 3: Answer</h4>
             <p>Give the AI the relevant docs + your question. It answers using ONLY your data!</p>
-            <p style="color:#9ca3af; font-size:0.9rem;">Like reading the chapter, then answering</p>
+            <p style="color:#cccccc; font-size:0.9rem;">Like reading the chapter, then answering</p>
         </div>
         """, unsafe_allow_html=True)
     
     st.markdown("""
     <div class="big-quote" style="font-size: 1.2rem;">
         <strong>Why this matters:</strong><br>
-        Without RAG: "What time does the SRM AP library close?" → AI guesses (probably wrong)<br>
-        With RAG: <em>AI checks your college FAQ document</em> → "The library closes at 10 PM on weekdays" ✅
+        Without RAG: "What time does the SRM AP library close?" — AI guesses (probably wrong)<br>
+        With RAG: <em>AI checks your college FAQ document</em> — "The library closes at 10 PM on weekdays"
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown("""
     <div class="concept-card">
-        <h4>🤔 What are Embeddings?</h4>
+        <h4>What are Embeddings?</h4>
         <p><strong>Simple version:</strong> Embeddings are a way to convert text into numbers that capture <strong>meaning</strong>.</p>
         <p>"I love coding" and "Programming is my passion" would have <strong>similar numbers</strong> because they mean similar things.</p>
         <p>"I love coding" and "My cat is sleeping" would have <strong>very different numbers</strong>.</p>
-        <p style="color:#9ca3af;">This is how the database can search by meaning instead of exact keyword matches!</p>
+        <p style="color:#cccccc;">This is how the database can search by meaning instead of exact keyword matches!</p>
     </div>
     """, unsafe_allow_html=True)
     slide_end(n)
@@ -1008,11 +1001,11 @@ elif current == "What is RAG?":
 #  SLIDE: DEMO 2 - RAG PIPELINE
 # ================================================================
 elif current == "Demo 2: RAG Pipeline":
-    n = slide_start("🔍 Demo 2: RAG in Action", "Chat with your own notes!", sn, TOTAL)
+    n = slide_start("Demo 2: RAG in Action", "Chat with your own notes", sn, TOTAL)
     
     st.markdown("""
     <div class="analogy-box">
-        <h4>📝 What we're doing</h4>
+        <h4>What we're doing</h4>
         <p>1. Load some study notes into a smart database</p>
         <p>2. Ask it questions — it finds the right notes and answers from them</p>
         <p>3. Ask something NOT in the notes — watch it say "I don't know" (that's good!)</p>
@@ -1030,9 +1023,9 @@ Students need a minimum of 75% attendance to sit for exams.
 The sports complex has a gym, basketball court, and swimming pool.
 The campus bus service runs every 30 minutes from the main gate."""
     
-    notes = st.text_area("📚 Knowledge Base (your notes — one fact per line):", value=default_notes, height=200)
+    notes = st.text_area("Knowledge Base (your notes — one fact per line):", value=default_notes, height=200)
     
-    if st.button("📦 Load Notes into Smart Database", use_container_width=True):
+    if st.button("Load Notes into Smart Database", use_container_width=True):
         try:
             import chromadb
             docs = [n.strip() for n in notes.strip().split("\n") if n.strip()]
@@ -1045,7 +1038,7 @@ The campus bus service runs every 30 minutes from the main gate."""
             collection.add(documents=docs, ids=[f"d_{i}" for i in range(len(docs))])
             st.session_state.rag_collection = collection
             st.session_state.rag_ready = True
-            st.success(f"✅ Loaded {len(docs)} notes! Now ask a question below 👇")
+            st.success(f"Loaded {len(docs)} notes. Now ask a question below.")
         except Exception as e:
             st.error(f"Error: {e}. Try refreshing the page.")
     
@@ -1055,7 +1048,7 @@ The campus bus service runs every 30 minutes from the main gate."""
         col_good, col_trick = st.columns(2)
         
         with col_good:
-            st.markdown("### ✅ Ask something IN the notes")
+            st.markdown("### Ask something IN the notes")
             query = st.text_input("Your question:", value="What time does the library close?", key="rag_q1")
             if st.button("Ask (RAG)", use_container_width=True, key="rag_btn1"):
                 if not st.session_state.groq_key:
@@ -1063,12 +1056,12 @@ The campus bus service runs every 30 minutes from the main gate."""
                 else:
                     collection = st.session_state.rag_collection
                     with st.status("RAG Pipeline running...", expanded=True) as status:
-                        st.write("🔍 Step 1: Searching notes for relevant info...")
+                        st.write("Step 1: Searching notes for relevant info...")
                         results = collection.query(query_texts=[query], n_results=2)
                         for i, doc in enumerate(results['documents'][0]):
-                            st.write(f"📄 Found: *{doc[:80]}...*")
+                            st.write(f"Found: *{doc[:80]}...*")
                         context = "\n---\n".join(results['documents'][0])
-                        st.write("🧠 Step 2: Sending to AI with the relevant notes...")
+                        st.write("Step 2: Sending to AI with the relevant notes...")
                         from groq import Groq
                         client = Groq(api_key=st.session_state.groq_key)
                         resp = client.chat.completions.create(
@@ -1079,11 +1072,11 @@ The campus bus service runs every 30 minutes from the main gate."""
                             ],
                             max_tokens=300, temperature=0.3
                         )
-                        status.update(label="✅ Done!", state="complete")
+                        status.update(label="Done!", state="complete")
                     st.markdown(f'<div class="demo-output">{resp.choices[0].message.content}</div>', unsafe_allow_html=True)
         
         with col_trick:
-            st.markdown("### ❌ Ask something NOT in the notes")
+            st.markdown("### Ask something NOT in the notes")
             trick_q = st.text_input("Try to trick it:", value="What's the Instagram password for the college page?", key="rag_q2")
             if st.button("Ask (should say 'I don't know')", use_container_width=True, key="rag_btn2"):
                 if not st.session_state.groq_key:
@@ -1104,7 +1097,7 @@ The campus bus service runs every 30 minutes from the main gate."""
                     )
                     st.info(resp.choices[0].message.content)
     
-    with st.expander("🤔 What just happened? (Simple explanation)"):
+    with st.expander("What just happened? (Simple explanation)"):
         st.markdown("""
         1. **We loaded your notes** into a vector database (ChromaDB). Each note was converted into numbers (embeddings).
         2. **When you asked a question**, the database found the notes most similar *in meaning* to your question.
@@ -1118,7 +1111,7 @@ The campus bus service runs every 30 minutes from the main gate."""
 # ================================================================
 #  SLIDE: FEEDBACK 2
 # ================================================================
-elif current == "⚡ Feedback 2":
+elif current == "Feedback 2":
     render_feedback_slide(2, None, sn, TOTAL)
 
 # ================================================================
@@ -1164,12 +1157,12 @@ elif current == "Quiz 2: RAG Basics":
         ])
         if score == 4:
             st.balloons()
-            st.success(f"🎉 Score: {score}/4 — RAG master!")
+            st.success(f"Score: {score}/4 — RAG master!")
         elif score >= 3:
             st.info(f"Score: {score}/4 — Solid understanding!")
         else:
             st.warning(f"Score: {score}/4 — Review the RAG slides and demo.")
-        with st.expander("✅ Correct answers"):
+        with st.expander("Correct answers"):
             st.markdown("""
             1. **B)** Retrieval Augmented Generation
             2. **C)** Looking up the relevant pages before answering (retrieval = finding the right context)
@@ -1186,7 +1179,7 @@ elif current == "What are AI Agents?":
     
     st.markdown("""
     <div class="analogy-box">
-        <h4>🏢 The Intern vs Employee Analogy</h4>
+        <h4>The Intern vs Employee Analogy</h4>
         <p><strong>ChatGPT (Chatbot)</strong> = An intern. You ask a question, they answer. You ask another, they answer. 
         They only do exactly what you say, one thing at a time.</p>
         <p><strong>AI Agent</strong> = A smart employee. You say "Research this topic and email me a summary." 
@@ -1200,12 +1193,12 @@ elif current == "What are AI Agents?":
     with col1:
         st.markdown("""
         <div class="concept-card">
-            <h4>🤖 Regular Chatbot</h4>
-            <p>• You ask → It answers</p>
-            <p>• Can't use tools</p>
-            <p>• Can't search the internet</p>
-            <p>• Can't take actions</p>
-            <p>• One-shot response</p>
+            <h4>Regular Chatbot</h4>
+            <p>You ask, it answers</p>
+            <p>Can't use tools</p>
+            <p>Can't search the internet</p>
+            <p>Can't take actions</p>
+            <p>One-shot response</p>
             <p style="color: #EF3837;">Like texting a friend</p>
         </div>
         """, unsafe_allow_html=True)
@@ -1213,12 +1206,12 @@ elif current == "What are AI Agents?":
     with col2:
         st.markdown("""
         <div class="concept-card">
-            <h4>🦾 AI Agent</h4>
-            <p>• You give a goal → It figures out the steps</p>
-            <p>• Can use tools (search, calculator, APIs)</p>
-            <p>• Can browse the internet</p>
-            <p>• Can take actions (send email, write files)</p>
-            <p>• Multi-step reasoning</p>
+            <h4>AI Agent</h4>
+            <p>You give a goal, it figures out the steps</p>
+            <p>Can use tools (search, calculator, APIs)</p>
+            <p>Can browse the internet</p>
+            <p>Can take actions (send email, write files)</p>
+            <p>Multi-step reasoning</p>
             <p style="color: #22c55e;">Like hiring an assistant</p>
         </div>
         """, unsafe_allow_html=True)
@@ -1229,33 +1222,33 @@ elif current == "What are AI Agents?":
     with c1:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>🧠 Brain</h4>
+            <h4>Brain</h4>
             <p>The LLM that thinks and decides</p>
-            <p style="color:#9ca3af; font-size:0.85rem;">(GPT, Gemini, Llama, etc.)</p>
+            <p style="color:#cccccc; font-size:0.85rem;">(GPT, Gemini, Llama, etc.)</p>
         </div>
         """, unsafe_allow_html=True)
     with c2:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>📚 Memory</h4>
+            <h4>Memory</h4>
             <p>RAG — your documents and context</p>
-            <p style="color:#9ca3af; font-size:0.85rem;">(What we just learned!)</p>
+            <p style="color:#cccccc; font-size:0.85rem;">(What we just learned!)</p>
         </div>
         """, unsafe_allow_html=True)
     with c3:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>🔧 Tools</h4>
+            <h4>Tools</h4>
             <p>Search, calculator, APIs, databases</p>
-            <p style="color:#9ca3af; font-size:0.85rem;">(The agent's hands)</p>
+            <p style="color:#cccccc; font-size:0.85rem;">(The agent's hands)</p>
         </div>
         """, unsafe_allow_html=True)
     with c4:
         st.markdown("""
         <div class="concept-card" style="text-align:center;">
-            <h4>🎯 Orchestrator</h4>
+            <h4>Orchestrator</h4>
             <p>The logic: what to do when</p>
-            <p style="color:#9ca3af; font-size:0.85rem;">(The agent's brain plan)</p>
+            <p style="color:#cccccc; font-size:0.85rem;">(The agent's brain plan)</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -1265,40 +1258,40 @@ elif current == "What are AI Agents?":
 #  SLIDE: DEMO 3 - NO-CODE AGENT (N8N)
 # ================================================================
 elif current == "Demo 3: No-Code Agent (n8n)":
-    n = slide_start("🤖 Demo 3: Build an Agent — No Code!", "Using n8n — drag-and-drop AI agent builder", sn, TOTAL)
+    n = slide_start("Demo 3: Build an Agent — No Code", "Using n8n — drag-and-drop AI agent builder", sn, TOTAL)
     
     st.markdown("""
     <div class="analogy-box">
-        <h4>🎯 What is n8n?</h4>
+        <h4>What is n8n?</h4>
         <p><strong>n8n</strong> (pronounced "n-eight-n") is a free visual workflow tool where you build AI agents by <strong>connecting blocks</strong> — no coding needed!</p>
         <p>Think of it like <strong>LEGO for AI</strong>. Each block does one thing (chat, search, read a document). You snap them together to build an agent.</p>
     </div>
     """, unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
-    with col1: st.link_button("🚀 Open n8n Cloud", "https://app.n8n.cloud/register", use_container_width=True)
-    with col2: st.link_button("📖 n8n AI Docs", "https://docs.n8n.io/advanced-ai/", use_container_width=True)
-    with col3: st.link_button("🔑 Get Groq Key", "https://console.groq.com", use_container_width=True)
+    with col1: st.link_button("Open n8n Cloud", "https://app.n8n.cloud/register", use_container_width=True)
+    with col2: st.link_button("n8n AI Docs", "https://docs.n8n.io/advanced-ai/", use_container_width=True)
+    with col3: st.link_button("Get Groq Key", "https://console.groq.com", use_container_width=True)
     
-    st.markdown("### 📋 Follow Along — Step by Step")
+    st.markdown("### Follow Along — Step by Step")
     
     steps = [
         ("Sign up on n8n Cloud", "Free tier available — use your Google account!"),
-        ("Create a new workflow → Click '+' to add nodes", "A workflow is like a flowchart for your agent"),
+        ("Create a new workflow, click '+' to add nodes", "A workflow is like a flowchart for your agent"),
         ("Add a 'Chat Trigger' node", "This is the starting point — where user messages come in"),
-        ("Add an 'AI Agent' node → Connect it to the trigger", "This is the brain — it decides what to do!"),
-        ("Configure the AI model: Add Groq credential → Select a model", "Paste your Groq API key when asked"),
-        ("Add a 'System Message' in the agent → Paste the prompt below", "This is the agent's personality and rules"),
-        ("Add Tools: Click '+' under Tools → Add 'Wikipedia' and 'HTTP Request'", "These let your agent search for info!"),
+        ("Add an 'AI Agent' node, connect it to the trigger", "This is the brain — it decides what to do!"),
+        ("Configure the AI model: Add Groq credential, select a model", "Paste your Groq API key when asked"),
+        ("Add a 'System Message' in the agent, paste the prompt below", "This is the agent's personality and rules"),
+        ("Add Tools: Click '+' under Tools, add 'Wikipedia' and 'HTTP Request'", "These let your agent search for info!"),
         ("Test it! Click 'Chat' in the bottom panel", "Ask: 'What are the top programming languages in 2026?'"),
-        ("Watch the execution path light up!", "You can SEE which tools the agent chose to use 🤯"),
-        ("Click 'Share' → Get a webhook URL or embed it!", "Your agent is now accessible! 🎉"),
+        ("Watch the execution path light up", "You can see which tools the agent chose to use"),
+        ("Click 'Share' to get a webhook URL or embed it", "Your agent is now accessible"),
     ]
     
     for i, (step, hint) in enumerate(steps, 1):
         st.checkbox(f"**Step {i}:** {step}", key=f"n8n_{i}", help=hint)
     
-    st.markdown("### 📝 System Prompt to Copy:")
+    st.markdown("### System Prompt to Copy:")
     code_editor(
         code="""You are Campus Buddy AI, a friendly and helpful assistant for 
 college students at SRM AP.
@@ -1307,10 +1300,10 @@ Your personality: Friendly, encouraging, uses simple language.
 When you don't know something, say so honestly.
 
 When asked about current events, job market, or trends:
-→ Use your tools to SEARCH first, then answer with real data.
+-> Use your tools to SEARCH first, then answer with real data.
 
 When asked about general knowledge or topics:
-→ Use Wikipedia to get accurate information.
+-> Use Wikipedia to get accurate information.
 
 Always end with a helpful tip or next step the student can take.""",
         filename="system_prompt.txt",
@@ -1325,18 +1318,18 @@ Always end with a helpful tip or next step the student can take.""",
     
     st.markdown("""
     <div class="analogy-box">
-        <h4>🎨 Why n8n is cool for beginners</h4>
-        <p>• You can <strong>SEE</strong> the agent thinking — the workflow lights up as each step runs</p>
-        <p>• Drag and drop — no syntax errors, no debugging code</p>
-        <p>• 400+ integrations — connect to Google Sheets, Slack, Email, Notion, and more</p>
-        <p>• The same tool professionals use in production! This isn't a toy.</p>
+        <h4>Why n8n is great for beginners</h4>
+        <p>You can <strong>see</strong> the agent thinking — the workflow lights up as each step runs</p>
+        <p>Drag and drop — no syntax errors, no debugging code</p>
+        <p>400+ integrations — connect to Google Sheets, Slack, Email, Notion, and more</p>
+        <p>The same tool professionals use in production. This isn't a toy.</p>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown("""
     <div class="big-quote" style="font-size: 1.2rem;">
         You just built an AI agent with:<br>
-        🧠 Brain (LLM) + 🔧 Tools (Wikipedia, Search) + 🎯 Logic (System Prompt)<br><br>
+        Brain (LLM) + Tools (Wikipedia, Search) + Logic (System Prompt)<br><br>
         <em>Zero lines of code. Just drag, drop, and connect.</em>
     </div>
     """, unsafe_allow_html=True)
@@ -1346,31 +1339,31 @@ Always end with a helpful tip or next step the student can take.""",
 #  SLIDE: ACTIVITY 2 - BUILD YOUR AGENT
 # ================================================================
 elif current == "Activity 2: Build Your Agent":
-    n = slide_start("🏆 Activity 2: Build YOUR Agent", "30 minutes — Teams of 2-3", sn, TOTAL)
+    n = slide_start("Activity 2: Build YOUR Agent", "30 minutes — Teams of 2-3", sn, TOTAL)
     
     st.markdown("""
     <div class="activity-card">
-        <h4>🎯 CHALLENGE: Build a useful AI agent on n8n</h4>
+        <h4>CHALLENGE: Build a useful AI agent on n8n</h4>
         <ol>
             <li>Form teams of 2-3 people</li>
             <li>Pick a problem from the ideas below (or come up with your own!)</li>
             <li>Build it on n8n — add an AI Agent node, connect tools, write a great system prompt</li>
             <li>Test it with at least 5 different questions</li>
-            <li>Watch the workflow execute — see which tools the agent uses!</li>
-            <li>Each team: 2-minute demo to the group!</li>
+            <li>Watch the workflow execute — see which tools the agent uses</li>
+            <li>Each team: 2-minute demo to the group</li>
         </ol>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("### 💡 Project Ideas (Pick one!)")
+    st.markdown("### Project Ideas (Pick one)")
     
     ideas = {
-        "🎓 PlacePrep Coach": "Helps students prepare for placements. Upload interview questions as knowledge base. Uses web search for latest company patterns.",
-        "📚 Study Buddy": "Upload your course notes as knowledge base. Ask it questions about your syllabus. Great for exam prep!",
-        "🏫 Campus Navigator": "Knowledge base with campus info (locations, timings, contacts). Answers any campus question.",
-        "💼 Career Advisor": "Uses web search to find current job trends, salary data, and skill requirements. Gives personalized advice.",
-        "🍕 Food Recommender": "Knowledge base with local restaurant info. Recommends based on budget, cuisine, and mood.",
-        "🎬 Entertainment Buddy": "Uses web search to find latest movies, shows, and events. Gives personalized recommendations.",
+        "PlacePrep Coach": "Helps students prepare for placements. Upload interview questions as knowledge base. Uses web search for latest company patterns.",
+        "Study Buddy": "Upload your course notes as knowledge base. Ask it questions about your syllabus. Great for exam prep!",
+        "Campus Navigator": "Knowledge base with campus info (locations, timings, contacts). Answers any campus question.",
+        "Career Advisor": "Uses web search to find current job trends, salary data, and skill requirements. Gives personalized advice.",
+        "Food Recommender": "Knowledge base with local restaurant info. Recommends based on budget, cuisine, and mood.",
+        "Entertainment Buddy": "Uses web search to find latest movies, shows, and events. Gives personalized recommendations.",
     }
     
     col1, col2 = st.columns(2)
@@ -1383,7 +1376,7 @@ elif current == "Activity 2: Build Your Agent":
             </div>
             """, unsafe_allow_html=True)
     
-    st.markdown("### 🏆 Judging Criteria")
+    st.markdown("### Judging Criteria")
     c1, c2, c3 = st.columns(3)
     with c1:
         st.markdown("""
@@ -1412,14 +1405,14 @@ elif current == "Activity 2: Build Your Agent":
 # ================================================================
 #  SLIDE: FEEDBACK 3
 # ================================================================
-elif current == "⚡ Feedback 3":
+elif current == "Feedback 3":
     render_feedback_slide(3, None, sn, TOTAL)
 
 # ================================================================
 #  SLIDE: FINAL QUIZ
 # ================================================================
 elif current == "Final Quiz":
-    n = slide_start("🎯 Final Quiz: What Did You Learn?", None, sn, TOTAL)
+    n = slide_start("Final Quiz: What Did You Learn?", None, sn, TOTAL)
     
     q1 = st.radio("**1. You want AI to answer questions about YOUR college notes. You need:**", [
         "A) A bigger AI model",
@@ -1456,7 +1449,7 @@ elif current == "Final Quiz":
         "D) Using ChatGPT for homework"
     ], key="qf_5")
     
-    if st.button("🏆 Check My Score!", key="cf"):
+    if st.button("Check My Score", key="cf"):
         score = sum([
             1 if st.session_state.get("qf_1","").startswith("B") else 0,
             1 if st.session_state.get("qf_2","").startswith("B") else 0,
@@ -1466,14 +1459,14 @@ elif current == "Final Quiz":
         ])
         if score == 5:
             st.balloons()
-            st.success("🎉 5/5 — You're ready to be a CEO of Superintelligence! Amazing!")
+            st.success(f"5/5 — You're ready to be a CEO of Superintelligence! Amazing!")
         elif score >= 4:
-            st.success(f"🔥 {score}/5 — Excellent! You've got the fundamentals down!")
+            st.success(f"{score}/5 — Excellent! You've got the fundamentals down!")
         elif score >= 3:
-            st.info(f"👍 {score}/5 — Good start! Review the slides you missed.")
+            st.info(f"{score}/5 — Good start! Review the slides you missed.")
         else:
-            st.warning(f"📚 {score}/5 — No worries! Check the 'What to Learn Next' slide for resources.")
-        with st.expander("✅ Correct answers"):
+            st.warning(f"{score}/5 — No worries! Check the 'What to Learn Next' slide for resources.")
+        with st.expander("Correct answers"):
             st.markdown("""
             1. **B)** RAG — store, retrieve, then answer
             2. **B)** Agents can use tools and make decisions autonomously
@@ -1487,7 +1480,7 @@ elif current == "Final Quiz":
 #  SLIDE: WHAT TO LEARN NEXT
 # ================================================================
 elif current == "What to Learn Next":
-    n = slide_start("🚀 What to Learn Next", "Your roadmap after today", sn, TOTAL)
+    n = slide_start("What to Learn Next", "Your roadmap after today", sn, TOTAL)
     
     st.markdown("### Your Learning Path")
     
@@ -1495,38 +1488,38 @@ elif current == "What to Learn Next":
     with col1:
         st.markdown("""
         <div class="concept-card">
-            <h4>📅 This Week</h4>
-            <p>• Practice prompt engineering daily — try different system prompts on ChatGPT/Gemini</p>
-            <p>• Build 2 more agents on n8n with different use cases</p>
-            <p>• Share your agent link with friends and get feedback</p>
+            <h4>This Week</h4>
+            <p>Practice prompt engineering daily — try different system prompts on ChatGPT/Gemini</p>
+            <p>Build 2 more agents on n8n with different use cases</p>
+            <p>Share your agent link with friends and get feedback</p>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown("""
         <div class="concept-card">
-            <h4>📅 This Month</h4>
-            <p>• Learn Python basics if you haven't (freeCodeCamp, W3Schools)</p>
-            <p>• Try the Groq API in Python — just 10 lines of code!</p>
-            <p>• Take the free DeepLearning.AI "ChatGPT Prompt Engineering" course</p>
+            <h4>This Month</h4>
+            <p>Learn Python basics if you haven't (freeCodeCamp, W3Schools)</p>
+            <p>Try the Groq API in Python — just 10 lines of code!</p>
+            <p>Take the free DeepLearning.AI "ChatGPT Prompt Engineering" course</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
         <div class="concept-card">
-            <h4>📅 Next 3 Months</h4>
-            <p>• Learn LangChain or CrewAI for building agents with code</p>
-            <p>• Build a RAG system with your own documents</p>
-            <p>• Deploy something on Hugging Face Spaces (free hosting)</p>
+            <h4>Next 3 Months</h4>
+            <p>Learn LangChain or CrewAI for building agents with code</p>
+            <p>Build a RAG system with your own documents</p>
+            <p>Deploy something on Hugging Face Spaces (free hosting)</p>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown("""
         <div class="concept-card">
-            <h4>📅 By Next Year</h4>
-            <p>• Build a portfolio of 3-5 AI projects</p>
-            <p>• Contribute to open-source AI projects</p>
-            <p>• Apply for AI/ML internships with your projects as proof</p>
+            <h4>By Next Year</h4>
+            <p>Build a portfolio of 3-5 AI projects</p>
+            <p>Contribute to open-source AI projects</p>
+            <p>Apply for AI/ML internships with your projects as proof</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -1534,7 +1527,7 @@ elif current == "What to Learn Next":
     <div class="big-quote" style="font-size: 1.3rem;">
         The people who will thrive in the AI era aren't the ones who <em>fear</em> AI.<br>
         They're the ones who <em>learn to orchestrate it</em>.<br><br>
-        You started that journey today. <em>Don't stop.</em> 🚀
+        You started that journey today. <em>Don't stop.</em>
     </div>
     """, unsafe_allow_html=True)
     slide_end(n)
@@ -1543,22 +1536,22 @@ elif current == "What to Learn Next":
 #  SLIDE: QUICK LINKS
 # ================================================================
 elif current == "Quick Links":
-    n = slide_start("🔗 Quick Links", "Everything you need in one place", sn, TOTAL)
+    n = slide_start("Quick Links", "Everything you need in one place", sn, TOTAL)
     
-    st.markdown("### 🛠️ Tools We Used Today")
+    st.markdown("### Tools We Used Today")
     c1, c2, c3 = st.columns(3)
     with c1: st.link_button("n8n Cloud (Agent Builder)", "https://app.n8n.cloud", use_container_width=True)
     with c2: st.link_button("Groq Console (API Key)", "https://console.groq.com", use_container_width=True)
     with c3: st.link_button("Google Colab", "https://colab.research.google.com", use_container_width=True)
     
-    st.markdown("### 📚 Free Learning Resources")
+    st.markdown("### Free Learning Resources")
     c1, c2, c3, c4 = st.columns(4)
     with c1: st.link_button("DeepLearning.AI (Free)", "https://deeplearning.ai/courses", use_container_width=True)
     with c2: st.link_button("Prompt Engineering Guide", "https://www.promptingguide.ai/", use_container_width=True)
     with c3: st.link_button("HuggingFace (Free hosting)", "https://huggingface.co/spaces", use_container_width=True)
     with c4: st.link_button("LangChain (Agents)", "https://python.langchain.com", use_container_width=True)
     
-    st.markdown("### 📝 Workshop Materials")
+    st.markdown("### Workshop Materials")
     st.text_input("Feedback Form:", key="fbl", placeholder="https://forms.google.com/...")
     st.text_input("Slide Deck / Resources:", key="rl", placeholder="https://...")
     st.text_input("WhatsApp / Discord Group:", key="wl", placeholder="https://chat.whatsapp.com/...")
@@ -1569,28 +1562,28 @@ elif current == "Quick Links":
 #  SLIDE: TIMER
 # ================================================================
 elif current == "Timer":
-    n = slide_start("⏱️ Activity Timer", None, sn, TOTAL)
+    n = slide_start("Activity Timer", None, sn, TOTAL)
     c1, c2 = st.columns(2)
     with c1: mins = st.number_input("Minutes:", min_value=1, max_value=60, value=15)
-    with c2: label = st.text_input("Activity:", value="Build Your Agent!")
+    with c2: label = st.text_input("Activity:", value="Build Your Agent")
     
-    if st.button("▶️ START TIMER", use_container_width=True):
+    if st.button("START TIMER", use_container_width=True):
         placeholder = st.empty()
         total_seconds = mins * 60
         for remaining in range(total_seconds, -1, -1):
             m, s = divmod(remaining, 60)
             color = "#22c55e" if remaining > 60 else "#f59e0b" if remaining > 15 else "#EF3837"
-            msg = "⏰ TIME'S UP!" if remaining == 0 else "🚀 Go go go!" if remaining > 60 else "⚡ Wrapping up..." if remaining > 15 else "🔥 Almost done!"
+            msg = "TIME'S UP!" if remaining == 0 else "Go!" if remaining > 60 else "Wrapping up..." if remaining > 15 else "Almost done!"
             placeholder.markdown(f"""
             <div style="text-align:center; padding:60px 0;">
-                <p style="font-size:1.5rem; color:#9ca3af;">{label}</p>
+                <p style="font-size:1.5rem; color:#cccccc;">{label}</p>
                 <p style="font-size:10rem; font-weight:900; color:{color}; margin:0; font-family:'JetBrains Mono',monospace;">{m:02d}:{s:02d}</p>
-                <p style="font-size:1.3rem; color:#9ca3af;">{msg}</p>
+                <p style="font-size:1.3rem; color:#cccccc;">{msg}</p>
             </div>
             """, unsafe_allow_html=True)
             time.sleep(1)
         st.balloons()
-        st.success(f"⏰ Time's up! {label} complete!")
+        st.success(f"Time's up! {label} complete!")
     slide_end(n)
 
 # ================================================================
