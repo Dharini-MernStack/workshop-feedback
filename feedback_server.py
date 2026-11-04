@@ -385,7 +385,7 @@ def build_structured_form(year_label, api_endpoint):
 <body>
 <div class="card">
   <div id="formSection">
-    <div class="logo">\U0001f9e0</div>
+    <div class="logo">🧠</div>
     <h1>CEO of Superintelligence</h1>
     <p class="subtitle">""" + year_label + """ Workshop Feedback</p>
 
@@ -462,13 +462,13 @@ def build_structured_form(year_label, api_endpoint):
     <label class="required">Email address</label>
     <input type="email" id="email" placeholder="your.name@kalvium.community">
 
-    <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Feedback \U0001f680</button>
+    <button class="submit-btn" id="submitBtn" onclick="submitForm()">Submit Feedback 🚀</button>
   </div>
 
   <div id="successSection" class="success hidden">
-    <div class="check">\u2705</div>
+    <div class="check">✅</div>
     <h2>Thank you!</h2>
-    <p>Your feedback has been recorded.<br>Great work today! \U0001f389</p>
+    <p>Your feedback has been recorded.<br>Great work today! 🎉</p>
   </div>
 </div>
 
@@ -519,12 +519,12 @@ async function submitForm() {
       const err = await res.json();
       alert(err.error || 'Something went wrong. Try again!');
       document.getElementById('submitBtn').disabled = false;
-      document.getElementById('submitBtn').textContent = 'Submit Feedback \U0001f680';
+      document.getElementById('submitBtn').textContent = 'Submit Feedback 🚀';
     }
   } catch(e) {
     alert('Network error. Try again!');
     document.getElementById('submitBtn').disabled = false;
-    document.getElementById('submitBtn').textContent = 'Submit Feedback \U0001f680';
+    document.getElementById('submitBtn').textContent = 'Submit Feedback 🚀';
   }
 }
 </script>
