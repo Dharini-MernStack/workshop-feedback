@@ -1,0 +1,17 @@
+{
+  "responses": [
+    {
+      "email": "test@kalvium.community",
+      "overall_rating": 4,
+      "content_relevance": 3,
+      "explanation_quality": 4,
+      "practical_rating": 3,
+      "met_expectations": "Yes",
+      "gained_skills": "Yes",
+      "most_useful": "RAG demo",
+      "github_link": "",
+      "additional_comments": "",
+      "timestamp": "2026-11-04T15:14:52.600547"
+    }
+  ]
+}

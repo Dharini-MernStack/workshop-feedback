@@ -477,18 +477,16 @@ SLIDES = [
     "Demo 1: Roast My Insta Bio",
     "Prompt Engineering 101",
     "Activity 1: Prompt Battle",
-    "Feedback 1",
     "Quiz 1: AI Fundamentals",
     "What is RAG?",
     "Demo 2: RAG Pipeline",
-    "Feedback 2",
     "Quiz 2: RAG Basics",
     "What are AI Agents?",
     "Demo 3: No-Code Agent (n8n)",
     "Systems Thinking",
     "Activity 2: Build Your Agent",
-    "Feedback 3",
     "Final Quiz",
+    "📊 Workshop Feedback",
     "What to Learn Next",
     "Quick Links",
     "Timer",
@@ -939,12 +937,6 @@ elif current == "Activity 1: Prompt Battle":
     slide_end(n)
 
 # ================================================================
-#  SLIDE: FEEDBACK 1
-# ================================================================
-elif current == "Feedback 1":
-    render_feedback_slide(1, None, sn, TOTAL)
-
-# ================================================================
 #  SLIDE: QUIZ 1 - AI FUNDAMENTALS
 # ================================================================
 elif current == "Quiz 1: AI Fundamentals":
@@ -1195,12 +1187,6 @@ The campus bus service runs every 30 minutes from the main gate."""
         **This is RAG!** The AI is "augmented" with your specific data. This is how companies build chatbots for their own documents.
         """)
     slide_end(n)
-
-# ================================================================
-#  SLIDE: FEEDBACK 2
-# ================================================================
-elif current == "Feedback 2":
-    render_feedback_slide(2, None, sn, TOTAL)
 
 # ================================================================
 #  SLIDE: QUIZ 2 - RAG BASICS
@@ -1671,12 +1657,6 @@ elif current == "Activity 2: Build Your Agent":
     slide_end(n)
 
 # ================================================================
-#  SLIDE: FEEDBACK 3
-# ================================================================
-elif current == "Feedback 3":
-    render_feedback_slide(3, None, sn, TOTAL)
-
-# ================================================================
 #  SLIDE: FINAL QUIZ
 # ================================================================
 elif current == "Final Quiz":
@@ -1770,6 +1750,110 @@ elif current == "Final Quiz":
             4. **B)** AI's personality, behavior, and rules
             5. **C)** Orchestrating AI -- the CEO mindset!
             """)
+    slide_end(n)
+
+# ================================================================
+#  SLIDE: WORKSHOP FEEDBACK (STRUCTURED)
+# ================================================================
+elif current == "📊 Workshop Feedback":
+    n = slide_start("Workshop Feedback", "Scan → Fill → Submit — Live Count", sn, TOTAL)
+    
+    form_url = f"{FEEDBACK_URL}/2ndyear"
+    
+    col_qr, col_stats = st.columns([1, 1])
+    
+    with col_qr:
+        st.markdown(f"""
+        <div style="text-align:center; padding: 10px 0;">
+            <p style="font-size:1.3rem; color:#cccccc; margin-bottom:8px;">📱 Scan with your phone</p>
+            <p style="font-size:0.85rem; color:#555; margin-bottom:12px;">Works on <strong style='color:#EF3837;'>any network</strong> — mobile data is fine!</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        qr_img = generate_qr(form_url)
+        if qr_img:
+            buf = io.BytesIO()
+            qr_img.save(buf, format="PNG")
+            buf.seek(0)
+            st.image(buf, width=280, use_container_width=False)
+        else:
+            st.warning("Install qrcode & Pillow: pip install qrcode[pil]")
+        
+        st.markdown(f"""
+        <div style="text-align:center;">
+            <code style="background:#1a1a1a; padding:8px 16px; border-radius:8px; color:#ff6b6b; font-size:0.9rem;">{form_url}</code>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col_stats:
+        def load_2ndyear_stats():
+            try:
+                resp = requests.get(f"{FEEDBACK_URL}/api/2ndyear/stats", timeout=5)
+                if resp.status_code == 200:
+                    return resp.json()
+            except:
+                pass
+            return {"count": 0, "avg_overall": 0, "avg_relevance": 0,
+                    "avg_explanation": 0, "avg_practical": 0,
+                    "met_expectations_pct": 0, "gained_skills_pct": 0, "github_count": 0}
+        
+        fb = load_2ndyear_stats()
+        
+        st.markdown(f"""
+        <div style="text-align:center; padding:20px 0 10px 0;">
+            <p style="font-size:5rem; font-weight:900; color:#22c55e; margin:0; font-family:'JetBrains Mono',monospace;">{fb['count']}</p>
+            <p style="font-size:1.2rem; color:#cccccc;">responses received</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if fb["count"] > 0:
+            r1, r2 = st.columns(2), st.columns(2)
+            metrics = [
+                ("Overall", fb["avg_overall"]),
+                ("Relevance", fb["avg_relevance"]),
+                ("Clarity", fb["avg_explanation"]),
+                ("Hands-on", fb["avg_practical"]),
+            ]
+            for i, (label, avg) in enumerate(metrics):
+                color = "#22c55e" if avg >= 3.5 else "#f59e0b" if avg >= 2.5 else "#EF3837"
+                col_pair = r1 if i < 2 else r2
+                with col_pair[i % 2]:
+                    st.markdown(f"""
+                    <div style="text-align:center; background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:12px 6px; margin-bottom:8px;">
+                        <p style="font-size:1.8rem; font-weight:900; color:{color}; margin:0; font-family:'JetBrains Mono',monospace;">{avg}/4</p>
+                        <p style="font-size:0.8rem; color:#cccccc; margin:2px 0 0 0;">{label}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+    
+    if fb["count"] > 0:
+        st.markdown("")
+        m1, m2, m3 = st.columns(3)
+        with m1:
+            st.markdown(f"""
+            <div style="text-align:center; background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:14px 8px;">
+                <p style="font-size:2rem; font-weight:900; color:#22c55e; margin:0; font-family:'JetBrains Mono',monospace;">{fb['met_expectations_pct']}%</p>
+                <p style="font-size:0.8rem; color:#cccccc; margin:2px 0 0 0;">Met Expectations</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with m2:
+            st.markdown(f"""
+            <div style="text-align:center; background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:14px 8px;">
+                <p style="font-size:2rem; font-weight:900; color:#22c55e; margin:0; font-family:'JetBrains Mono',monospace;">{fb['gained_skills_pct']}%</p>
+                <p style="font-size:0.8rem; color:#cccccc; margin:2px 0 0 0;">Gained New Skills</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with m3:
+            st.markdown(f"""
+            <div style="text-align:center; background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:14px 8px;">
+                <p style="font-size:2rem; font-weight:900; color:#3b82f6; margin:0; font-family:'JetBrains Mono',monospace;">{fb['github_count']}</p>
+                <p style="font-size:0.8rem; color:#cccccc; margin:2px 0 0 0;">GitHub/Colab Submitted</p>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    st.markdown("")
+    if st.button("Refresh Count", use_container_width=True, key="refresh_2ndyr"):
+        st.rerun()
+    
     slide_end(n)
 
 # ================================================================
