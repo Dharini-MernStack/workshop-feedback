@@ -440,6 +440,7 @@ SLIDES = [
     "Activity 3: Build an Agent",
     "Activity 4: Hackathon",
     "Final Quiz",
+    "📊 3rd Year Feedback",
     "Quick Links",
     "Timer",
 ]
@@ -1723,6 +1724,114 @@ elif current == "Final Quiz":
             st.warning(f"{score}/3 -- Review the modules.")
         with st.expander("Correct answers"):
             st.markdown("1. **B** RAG\n2. **B** A tool (API)\n3. **C** Orchestrating AI")
+    slide_end(n)
+
+# ================================================================
+#  SLIDE: 3RD YEAR FEEDBACK (QR + LIVE COUNT)
+# ================================================================
+elif current == "📊 3rd Year Feedback":
+    n = slide_start("3rd Year Workshop Feedback", "Scan → Fill → Submit — Live Count", sn, TOTAL)
+    
+    form_url = f"{FEEDBACK_URL}/3rdyear"
+    
+    col_qr, col_stats = st.columns([1, 1])
+    
+    with col_qr:
+        st.markdown(f"""
+        <div style="text-align:center; padding: 10px 0;">
+            <p style="font-size:1.3rem; color:#9ca3af; margin-bottom:8px;">📱 Scan with your phone</p>
+            <p style="font-size:0.85rem; color:#555; margin-bottom:12px;">Works on <strong style='color:#EF3837;'>any network</strong> — mobile data is fine!</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        qr_img = generate_qr(form_url)
+        if qr_img:
+            buf = io.BytesIO()
+            qr_img.save(buf, format="PNG")
+            buf.seek(0)
+            st.image(buf, width=280, use_container_width=False)
+        else:
+            st.warning("Install qrcode & Pillow: pip install qrcode[pil]")
+        
+        st.markdown(f"""
+        <div style="text-align:center;">
+            <code style="background:#1a1a1a; padding:8px 16px; border-radius:8px; color:#ff6b6b; font-size:0.9rem;">{form_url}</code>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col_stats:
+        # Fetch live stats from feedback server
+        def load_3rdyear_stats():
+            try:
+                resp = requests.get(f"{FEEDBACK_URL}/api/3rdyear/stats", timeout=5)
+                if resp.status_code == 200:
+                    return resp.json()
+            except:
+                pass
+            return {"count": 0, "avg_overall": 0, "avg_relevance": 0,
+                    "avg_explanation": 0, "avg_practical": 0,
+                    "met_expectations_pct": 0, "gained_skills_pct": 0, "github_count": 0}
+        
+        fb = load_3rdyear_stats()
+        
+        # Big count
+        st.markdown(f"""
+        <div style="text-align:center; padding:20px 0 10px 0;">
+            <p style="font-size:5rem; font-weight:900; color:#22c55e; margin:0; font-family:'JetBrains Mono',monospace;">{fb['count']}</p>
+            <p style="font-size:1.2rem; color:#9ca3af;">responses received</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Rating averages (compact 2x2 grid)
+        if fb["count"] > 0:
+            r1, r2 = st.columns(2), st.columns(2)
+            metrics = [
+                ("Overall", fb["avg_overall"]),
+                ("Relevance", fb["avg_relevance"]),
+                ("Clarity", fb["avg_explanation"]),
+                ("Hands-on", fb["avg_practical"]),
+            ]
+            for i, (label, avg) in enumerate(metrics):
+                color = "#22c55e" if avg >= 3.5 else "#f59e0b" if avg >= 2.5 else "#EF3837"
+                col_pair = r1 if i < 2 else r2
+                with col_pair[i % 2]:
+                    st.markdown(f"""
+                    <div style="text-align:center; background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:12px 6px; margin-bottom:8px;">
+                        <p style="font-size:1.8rem; font-weight:900; color:{color}; margin:0; font-family:'JetBrains Mono',monospace;">{avg}/4</p>
+                        <p style="font-size:0.8rem; color:#9ca3af; margin:2px 0 0 0;">{label}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+    
+    # Bottom row: extra stats + refresh
+    if fb["count"] > 0:
+        st.markdown("")
+        m1, m2, m3 = st.columns(3)
+        with m1:
+            st.markdown(f"""
+            <div style="text-align:center; background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:14px 8px;">
+                <p style="font-size:2rem; font-weight:900; color:#22c55e; margin:0; font-family:'JetBrains Mono',monospace;">{fb['met_expectations_pct']}%</p>
+                <p style="font-size:0.8rem; color:#9ca3af; margin:2px 0 0 0;">Met Expectations</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with m2:
+            st.markdown(f"""
+            <div style="text-align:center; background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:14px 8px;">
+                <p style="font-size:2rem; font-weight:900; color:#22c55e; margin:0; font-family:'JetBrains Mono',monospace;">{fb['gained_skills_pct']}%</p>
+                <p style="font-size:0.8rem; color:#9ca3af; margin:2px 0 0 0;">Gained New Skills</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with m3:
+            st.markdown(f"""
+            <div style="text-align:center; background:#1a1a1a; border:1px solid #333; border-radius:12px; padding:14px 8px;">
+                <p style="font-size:2rem; font-weight:900; color:#3b82f6; margin:0; font-family:'JetBrains Mono',monospace;">{fb['github_count']}</p>
+                <p style="font-size:0.8rem; color:#9ca3af; margin:2px 0 0 0;">GitHub/Colab Submitted</p>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    st.markdown("")
+    if st.button("🔄 Refresh Count", use_container_width=True, key="refresh_3rdyr"):
+        st.rerun()
+    
     slide_end(n)
 
 # ================================================================
