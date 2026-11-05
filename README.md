@@ -47,20 +47,23 @@ Interactive Streamlit slide decks for the **"Building AI Agents"** workshop at S
 2. How LLMs Work
 3. Setup (Groq API key)
 4. **Demo 1: Roast My Insta Bio** — 4 roast styles
-5. Prompt Engineering 101
-6. **Activity 1: Prompt Battle** — write system prompts to review a resume
-7. Quiz 1: AI Fundamentals
-8. What is RAG?
-9. **Demo 2: RAG Pipeline** — chat with campus notes
-10. Quiz 2: RAG Basics
-11. What are AI Agents?
-12. Demo 3: No-Code Agent (n8n)
-13. Systems Thinking
-14. Activity 2: Build Your Agent
-15. Final Quiz
-16. Workshop Feedback
-17. What to Learn Next
-18. Quick Links / Timer
+5. **Demo 1: Code Behind** — the 10 lines of Python that power the roast
+6. Prompt Engineering 101
+7. **Activity 1: Prompt Battle** — write system prompts to review a resume
+8. Quiz 1: AI Fundamentals
+9. What is RAG?
+10. **Demo 2: RAG Pipeline** — chat with campus notes
+11. **Demo 2: Code Behind** — complete RAG in 25 lines
+12. Quiz 2: RAG Basics
+13. What are AI Agents?
+14. **Demo 3: No-Code Agent (n8n)** — drag-and-drop agent builder
+15. **Demo 3: Code Behind** — what n8n does under the hood, in Python
+16. Systems Thinking
+17. Activity 2: Build Your Agent
+18. Final Quiz
+19. Workshop Feedback
+20. What to Learn Next
+21. Quick Links / Timer
 
 ### 🔥 Demo 1 — Roast My Insta Bio (4 System Prompts)
 

@@ -483,14 +483,17 @@ SLIDES = [
     "How LLMs Work",
     "Setup",
     "Demo 1: Roast My Insta Bio",
+    "Demo 1: Code Behind",
     "Prompt Engineering 101",
     "Activity 1: Prompt Battle",
     "Quiz 1: AI Fundamentals",
     "What is RAG?",
     "Demo 2: RAG Pipeline",
+    "Demo 2: Code Behind",
     "Quiz 2: RAG Basics",
     "What are AI Agents?",
     "Demo 3: No-Code Agent (n8n)",
+    "Demo 3: Code Behind",
     "Systems Thinking",
     "Activity 2: Build Your Agent",
     "Final Quiz",
@@ -823,6 +826,50 @@ THE GLOW-UP (rewrite the bio so it actually slaps)"""},
         
         **Try changing the roast style** — same bio, completely different output. That's the power of system prompts!
         """)
+    slide_end(n)
+
+# ================================================================
+#  SLIDE: DEMO 1 CODE BEHIND
+# ================================================================
+elif current == "Demo 1: Code Behind":
+    n = slide_start("Demo 1: The Code", "10 lines that roast an Insta bio", sn, TOTAL)
+    code_editor(
+        code="""from groq import Groq
+
+client = Groq(api_key="YOUR_KEY")
+
+bio = \"\"\"Paste any Instagram bio here\"\"\"
+
+response = client.chat.completions.create(
+    model="qwen/qwen3.8-27b",
+    messages=[
+        {
+            "role": "system",
+            "content": "You are a savage social media roast comedian. "
+                       "Roast Instagram bios like a stand-up special. "
+                       "Structure: THE ROAST, CRINGE-O-METER, THE GLOW-UP."
+        },
+        {
+            "role": "user",
+            "content": f"Roast this Instagram bio:\\n{bio}"
+        }
+    ],
+    temperature=0.9,
+    max_tokens=700
+)
+
+print(response.choices[0].message.content)""",
+        filename="roast_bio.py",
+        replicate_steps=[
+            "Install: <code>pip install groq</code>",
+            "Replace <code>YOUR_KEY</code> with your Groq API key from <a href='https://console.groq.com' target='_blank'>console.groq.com</a>",
+            "Paste any Instagram bio into the <code>bio</code> variable",
+            "Run: <code>python roast_bio.py</code>",
+            "<strong>Key concept:</strong> The <code>system</code> message = AI personality. The <code>user</code> message = your input.",
+            "<strong>Try this:</strong> Change the system prompt to 'Indian Aunty' style and run again — same bio, completely different output!",
+            "<strong>temperature</strong> (0-1): 0 = robotic & predictable, 0.9 = creative & funny",
+        ]
+    )
     slide_end(n)
 
 # ================================================================
@@ -1197,6 +1244,57 @@ The campus bus service runs every 30 minutes from the main gate."""
     slide_end(n)
 
 # ================================================================
+#  SLIDE: DEMO 2 CODE BEHIND
+# ================================================================
+elif current == "Demo 2: Code Behind":
+    n = slide_start("Demo 2: The Code", "Complete RAG in 25 lines", sn, TOTAL)
+    code_editor(
+        code="""import chromadb
+from groq import Groq
+
+# STEP 1: Create a smart database (vector DB)
+chroma = chromadb.Client()
+collection = chroma.create_collection("my_notes")
+
+# STEP 2: Add your notes (embeddings created automatically!)
+notes = [
+    "The library is open from 8 AM to 10 PM on weekdays.",
+    "The coding club meets every Wednesday at 5 PM in Room 301.",
+    "Students need a minimum of 75% attendance to sit for exams.",
+    "The cafeteria serves breakfast from 7:30 AM to 9:30 AM.",
+]
+collection.add(documents=notes, ids=[f"doc_{i}" for i in range(len(notes))])
+
+# STEP 3: Search by MEANING (not keywords!)
+results = collection.query(query_texts=["What time does the library close?"], n_results=2)
+context = "\\n".join(results['documents'][0])
+print("Found:", context)
+
+# STEP 4: Ask AI using ONLY the retrieved notes
+client = Groq(api_key="YOUR_KEY")
+response = client.chat.completions.create(
+    model="qwen/qwen3.8-27b",
+    messages=[
+        {"role": "system", "content": "Answer ONLY from the notes provided. If not in notes, say so."},
+        {"role": "user", "content": f"NOTES:\\n{context}\\n\\nQUESTION: What time does the library close?"}
+    ],
+    max_tokens=300, temperature=0.3
+)
+print(response.choices[0].message.content)""",
+        filename="rag_pipeline.py",
+        replicate_steps=[
+            "Install: <code>pip install chromadb groq</code>",
+            "Replace <code>YOUR_KEY</code> with your Groq API key",
+            "Run: <code>python rag_pipeline.py</code>",
+            "<strong>Step 1-2:</strong> Store your notes in a vector database (ChromaDB handles embeddings automatically)",
+            "<strong>Step 3:</strong> Search by <em>meaning</em> — 'library close' finds 'open from 8 AM to 10 PM' even though the words are different!",
+            "<strong>Step 4:</strong> Feed the relevant notes to the AI — it answers ONLY from your data",
+            "<strong>Try this:</strong> Replace the notes with YOUR study material and ask questions about it!",
+        ]
+    )
+    slide_end(n)
+
+# ================================================================
 #  SLIDE: QUIZ 2 - RAG BASICS
 # ================================================================
 elif current == "Quiz 2: RAG Basics":
@@ -1434,6 +1532,64 @@ Always end with a helpful tip or next step the student can take.""",
         <em>Zero lines of code. Just drag, drop, and connect.</em>
     </div>
     """, unsafe_allow_html=True)
+    slide_end(n)
+
+# ================================================================
+#  SLIDE: DEMO 3 CODE BEHIND
+# ================================================================
+elif current == "Demo 3: Code Behind":
+    n = slide_start("Demo 3: The Code", "What's happening inside n8n — in Python", sn, TOTAL)
+    
+    st.markdown("""
+    <div class="analogy-box">
+        <h4>n8n is no-code, but here's what it does under the hood</h4>
+        <p>Every block you dragged in n8n maps to real code. Here's the Python equivalent — so you understand what's actually happening.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    code_editor(
+        code="""from groq import Groq
+from duckduckgo_search import DDGS  # The "search" tool
+
+client = Groq(api_key="YOUR_KEY")
+
+# This is what n8n's "System Message" block does:
+system_prompt = \"\"\"You are Campus Buddy AI, a helpful assistant for SRM AP students.
+When asked about current events or trends, I'll search the web first.
+Always end with a helpful tip.\"\"\" 
+
+# This is what n8n's "Tool" blocks do:
+def search_web(query):
+    \"\"\"n8n's DuckDuckGo node = this function\"\"\"
+    results = DDGS().text(query, max_results=3)
+    return "\\n".join([r['body'] for r in results])
+
+# This is the Agent loop — n8n does this automatically:
+user_question = "What are the top AI trends in 2026?"
+
+# Step 1: Agent decides to use a tool
+web_results = search_web(user_question)
+
+# Step 2: Agent answers using the tool's output
+response = client.chat.completions.create(
+    model="qwen/qwen3.8-27b",
+    messages=[
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": f"Question: {user_question}\\n\\nWeb results:\\n{web_results}"}
+    ],
+    max_tokens=500, temperature=0.7
+)
+print(response.choices[0].message.content)""",
+        filename="agent_behind_n8n.py",
+        replicate_steps=[
+            "Install: <code>pip install groq duckduckgo-search</code>",
+            "Replace <code>YOUR_KEY</code> with your Groq API key",
+            "Run: <code>python agent_behind_n8n.py</code>",
+            "<strong>What n8n hides from you:</strong> The 'Chat Trigger' = input, 'AI Agent' = LLM call, 'Tool nodes' = functions like <code>search_web()</code>",
+            "<strong>The Agent pattern:</strong> System prompt + Tools + LLM = an agent that can take ACTION, not just chat",
+            "<strong>n8n vs code:</strong> n8n is great for prototyping. Code gives you full control. Best teams use both!",
+        ]
+    )
     slide_end(n)
 
 # ================================================================
