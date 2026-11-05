@@ -44,3 +44,22 @@ services:
     envVars:
       - key: FEEDBACK_URL
         value: https://workshop-feedback-ismc.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: workshop-feedback-db
+          property: connectionString
+
+  # 2nd Year Feedback Form (Streamlit) — students scan QR to this
+  - type: web
+    name: workshop-feedback-2ndyear
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run feedback_form.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    plan: free
+    repo: https://github.com/Dharini-MernStack/workshop-feedback
+    branch: main
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: workshop-feedback-db
+          property: connectionString

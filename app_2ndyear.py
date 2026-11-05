@@ -21,6 +21,14 @@ except ImportError:
 # ---- FEEDBACK SERVER URL ----
 FEEDBACK_URL = os.environ.get("FEEDBACK_URL", "https://workshop-feedback-ismc.onrender.com")
 
+# ---- FEEDBACK FORM URL (Streamlit form for 2nd year) ----
+FEEDBACK_FORM_URL = os.environ.get("FEEDBACK_FORM_URL", "https://workshop-feedback-2ndyear.onrender.com")
+
+# ---- DATABASE (shared with feedback form) ----
+DATABASE_URL = os.environ.get("DATABASE_URL", "")
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 # -- Page Config --
 st.set_page_config(
     page_title="CEO of Superintelligence -- Workshop (2nd Year)",
@@ -536,7 +544,7 @@ sn = st.session_state.slide + 1
 # ================================================================
 if current == "Title":
     n = slide_start("BECOME THE CEO OF SUPERINTELLIGENCE",
-                     "AI Agents Workshop — SRM AP x Kalvium — Nov 2026 (2nd Year Edition)", sn, TOTAL)
+                     "AI Skills Workshop — Kalvium × SRM AP — Nov 2026 — 2nd Year BTech CSE", sn, TOTAL)
     st.markdown("""
     <div class="big-quote">
         Person at Level 1: "AI will take my job"<br><br>
@@ -1758,7 +1766,7 @@ elif current == "Final Quiz":
 elif current == "📊 Workshop Feedback":
     n = slide_start("Workshop Feedback", "Scan → Fill → Submit — Live Count", sn, TOTAL)
     
-    form_url = f"{FEEDBACK_URL}/2ndyear"
+    form_url = FEEDBACK_FORM_URL
     
     col_qr, col_stats = st.columns([1, 1])
     
@@ -1787,6 +1795,41 @@ elif current == "📊 Workshop Feedback":
     
     with col_stats:
         def load_2ndyear_stats():
+            """Read stats directly from shared PostgreSQL, fallback to API."""
+            try:
+                if DATABASE_URL:
+                    import psycopg2
+                    conn = psycopg2.connect(DATABASE_URL)
+                    cur = conn.cursor()
+                    cur.execute("SELECT COUNT(*) FROM feedback_2ndyear")
+                    count = cur.fetchone()[0]
+                    if count == 0:
+                        conn.close()
+                        return {"count": 0, "avg_overall": 0, "avg_relevance": 0,
+                                "avg_explanation": 0, "avg_practical": 0,
+                                "met_expectations_pct": 0, "gained_skills_pct": 0, "github_count": 0}
+                    cur.execute("SELECT AVG(overall_rating), AVG(content_relevance), AVG(explanation_quality), AVG(practical_rating) FROM feedback_2ndyear")
+                    avgs = cur.fetchone()
+                    cur.execute("SELECT COUNT(*) FROM feedback_2ndyear WHERE LOWER(met_expectations) = 'yes'")
+                    met_yes = cur.fetchone()[0]
+                    cur.execute("SELECT COUNT(*) FROM feedback_2ndyear WHERE LOWER(gained_skills) = 'yes'")
+                    gained_yes = cur.fetchone()[0]
+                    cur.execute("SELECT COUNT(*) FROM feedback_2ndyear WHERE github_link IS NOT NULL AND github_link != ''")
+                    gh = cur.fetchone()[0]
+                    conn.close()
+                    return {
+                        "count": count,
+                        "avg_overall": round(float(avgs[0]), 2),
+                        "avg_relevance": round(float(avgs[1]), 2),
+                        "avg_explanation": round(float(avgs[2]), 2),
+                        "avg_practical": round(float(avgs[3]), 2),
+                        "met_expectations_pct": round(met_yes / count * 100),
+                        "gained_skills_pct": round(gained_yes / count * 100),
+                        "github_count": gh,
+                    }
+            except Exception:
+                pass
+            # Fallback: try the API
             try:
                 resp = requests.get(f"{FEEDBACK_URL}/api/2ndyear/stats", timeout=5)
                 if resp.status_code == 200:
